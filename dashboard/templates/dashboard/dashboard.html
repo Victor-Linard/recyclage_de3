@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_button %}
+    <a href="" class="btn btn-outline-success lift">
+        <span class="fe fe-video text-danger"></span>
+        Scanner
+    </a>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    Importer
+                </div>
+                <div class="card-body">
+                    <!-- Dropzone -->
+                    <div class="dropzone dropzone-multiple" data-dropzone='{"url": "https://", "acceptedFiles": "image/*"}'>
+
+                        <!-- Fallback -->
+                        <div class="fallback">
+                            <div class="custom-file">
+                                <input type="file" class="form-control" id="customFileUploadMultiple" multiple>
+                            </div>
+                        </div>
+
+                        <!-- Preview -->
+                        <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+
+                                        <!-- Image -->
+                                        <div class="avatar">
+                                            <img class="avatar-img rounded" src="data:image/svg+xml,%3csvg3c/svg%3e"
+                                                 alt="..."
+                                                 data-dz-thumbnail>
+                                        </div>
+
+                                    </div>
+                                    <div class="col ms-n3">
+
+                                        <!-- Heading -->
+                                        <h4 class="mb-1" data-dz-name>...</h4>
+
+                                        <!-- Text -->
+                                        <small class="text-muted" data-dz-size>...</small>
+
+                                    </div>
+                                    <div class="col-auto">
+
+                                        <!-- Dropdown -->
+                                        <div class="dropdown">
+                                            <a href="#" class="dropdown-ellipses dropdown-toggle" role="button"
+                                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fe fe-more-vertical"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a href="#" class="dropdown-item" data-dz-remove>
+                                                    Remove
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

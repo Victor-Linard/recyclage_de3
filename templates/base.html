@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+    <!-- Head -->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{% static 'theme/favicon/favicon.ico' %}" type="image/x-icon"/>
+
+        <!-- Map CSS -->
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" />
+
+        <!-- Libs CSS -->
+        <link rel="stylesheet" href="{% static 'theme/css/libs.bundle.css' %}" />
+
+        <!-- Theme CSS -->
+        <link rel="stylesheet" href="{% static 'theme/css/theme.bundle.css' %}" />
+
+        <!-- Title -->
+        <title>Dashkit</title>
+    </head>
+
+    <body>
+        <!-- NAVIGATION -->
+        <nav class="navbar navbar-vertical fixed-start navbar-expand-md navbar-light" id="sidebar">
+            <div class="container-fluid">
+
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse"
+                        aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Brand -->
+                <a class="navbar-brand" href="">
+                    <img src="{% static 'theme/img/logo.svg' %}" class="navbar-brand-img mx-auto" alt="...">
+                </a>
+
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="sidebarCollapse">
+
+                    <!-- Navigation -->
+                    <ul class="navbar-nav">
+                        {% if 'dashboard' in request.path %}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'dashboard' %}">
+                                    <i class="fe fe-home"></i> Dashboards
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'dashboard' %}">
+                                    <i class="fe fe-home"></i> Dashboards
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                </div> <!-- / .navbar-collapse -->
+
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+
+            <!-- HEADER -->
+            <div class="header">
+                <div class="container-fluid">
+
+                    <!-- Body -->
+                    <div class="header-body">
+                        <div class="row align-items-end">
+                            <div class="col">
+
+                                <!-- Pretitle -->
+                                <h6 class="header-pretitle">
+                                    Overview
+                                </h6>
+
+                                <!-- Title -->
+                                <h1 class="header-title">
+                                    Dashboard
+                                </h1>
+
+                            </div>
+                            <div class="col-auto">
+                            {% block header_button %}
+                            {% endblock %}
+                            </div>
+                        </div> <!-- / .row -->
+                    </div> <!-- / .header-body -->
+
+                </div>
+            </div> <!-- / .header -->
+            <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+        <script src="{% static 'theme/js/theme.bundle.js' %}"></script>
+        <script src="{% static 'theme/js/vendor.bundle.js' %}"></script>
+    </body>
+</html>
