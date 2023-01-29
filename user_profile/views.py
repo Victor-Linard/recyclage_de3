@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 import os
 
 # Create your views here.
 
+@login_required(login_url='/signin/')
 def general(request):
     return render(request, 'general.html', context={})
 

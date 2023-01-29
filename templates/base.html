@@ -56,6 +56,19 @@
                                 </a>
                             </li>
                         {% endif %}
+                        {% if 'user_profile' in request.path %}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'general' %}">
+                                    <i class="fe fe-user"></i> Profile
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'general' %}">
+                                    <i class="fe fe-user"></i> Profile
+                                </a>
+                            </li>
+                        {% endif %}
                     </ul>
 
                 </div> <!-- / .navbar-collapse -->
