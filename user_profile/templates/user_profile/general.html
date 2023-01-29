@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_button %}
+{% endblock %}
+{% block content %}
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+       <div class="row justify-content-center">
+          <div class="col-12 col-lg-10 col-xl-8">
+
+            <!-- Header -->
+            <div class="header md-5">
+              <div class="header-body">
+                <div class="row align-items-center">
+                  <div class="col">
+
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                      <li class="nav-item">
+                        <a href="{% url 'general' %}" class="nav-link active">
+                          General
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{% url 'avatar' %}" class="nav-link">
+                          Choose an avatar
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{% url 'security' %}" class="nav-link">
+                          Security
+                        </a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form>
+
+              <div class="row justify-content-between align-items-center">
+                <div class="col">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+
+                      <!-- Avatar -->
+                      <div class="avatar">
+                        <img class="avatar-img rounded-circle" src="../static/pictures/animal.jpg" alt="...">
+                      </div>
+
+                    </div>
+                    <div class="col ms-n2">
+
+                      <!-- Heading -->
+                      <h4 class="mb-1">
+                        Your avatar
+                      </h4>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Divider -->
+              <hr class="my-5">
+
+              <div class="row">
+                <div class="col-12 col-md-6">
+
+                  <!-- First name -->
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                      First name
+                    </label>
+
+                    <!-- Input -->
+                    <input type="text" class="form-control">
+
+                  </div>
+
+                </div>
+                <div class="col-12 col-md-6">
+
+                  <!-- Last name -->
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                      Last name
+                    </label>
+
+                    <!-- Input -->
+                    <input type="text" class="form-control">
+
+                  </div>
+
+                </div>
+                <div class="col-12">
+
+                  <!-- Email address -->
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="mb-1">
+                      Email address
+                    </label>
+
+                    <!-- Input -->
+                    <input type="email" class="form-control">
+
+                  </div>
+
+                </div>
+              </div> <!-- / .row -->
+
+              <!-- Button -->
+              <button class="btn btn-primary">
+                Save changes
+              </button>
+
+              <!-- Divider -->
+              <hr class="mt-4 mb-5">
+
+              <div class="row justify-content-between">
+                <div class="col-12 col-md-6">
+
+                  <!-- Heading -->
+                  <h4>
+                    Delete your account
+                  </h4>
+
+                  <!-- Text -->
+                  <p class="small text-muted mb-md-0">
+                    Please note, deleting your account is a permanent action and will not be recoverable once completed.
+                  </p>
+
+                </div>
+                <div class="col-auto">
+
+                  <!-- Button -->
+                  <button class="btn btn-danger">
+                    Delete
+                  </button>
+
+                </div>
+              </div> <!-- / .row -->
+
+            </form>
+
+            <br><br>
+
+          </div>
+       </div> <!-- / .row -->
+
+    </div> <!-- / .main-content -->
+{% endblock %}
