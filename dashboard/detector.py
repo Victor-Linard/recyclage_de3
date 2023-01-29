@@ -19,16 +19,6 @@ os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 os.environ["SSL_CERT_FILE"] = certifi.where()
 
 
-# Define model - ref CNN2
-
-
-def to_device(data, device):
-    """Move tensor(s) to chosen device"""
-    if isinstance(data, (list, tuple)):
-        return [to_device(x, device) for x in data]
-    return data.to(device, non_blocking=True)
-
-
 class Net(nn.Module):
     def __init__(self):
         super().__init__()
@@ -58,25 +48,6 @@ class Net(nn.Module):
 
     def forward(self, xb):
         return torch.sigmoid(self.network(xb))
-
-
-class DeviceDataLoader:
-    """Wrap a dataloader to move data to a device"""
-
-    def __init__(self, dl, device):
-        self.dl = dl
-        self.device = device
-
-    def __iter__(self):
-        """Yield a batch of data after moving it to device"""
-        for b in self.dl:
-            yield to_device(b, self.device)
-
-    def __len__(self):
-        """Number of batches"""
-        return len(self.dl)
-
-
 class MyModel:
 
     def __init__(self, trained_weights: str, device: str):
@@ -90,8 +61,7 @@ class MyModel:
         try:
             # Force loading on CPU if there is no GPU
             if not torch.cuda.is_available():
-                self.net.load_state_dict(
-                    torch.load(self.weights, map_location=lambda storage, loc: storage)["state_dict"])
+                self.net.load_state_dict(torch.load(self.weights, map_location=lambda storage, loc: storage)["state_dict"])
             else:
                 self.net.load_state_dict(torch.load(self.weights)["state_dict"])
 
@@ -109,7 +79,7 @@ class MyModel:
         preprocess = transforms.Compose([
             transforms.Resize((300, 300)),
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]), ])
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),])
         image_tensor = preprocess(img)
 
         # create a mini-batch as expected by the model
@@ -126,6 +96,13 @@ class MyModel:
         cv2.putText(img, label, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)"""
 
         return index[0].item(), confidence[0].item()
+
+
+def to_device(data, device):
+    """Move tensor(s) to chosen device"""
+    if isinstance(data, (list, tuple)):
+        return [to_device(x, device) for x in data]
+    return data.to(device, non_blocking=True)
 
 
 def render_prediction(index):
@@ -146,12 +123,11 @@ img_class_map = None
 with open('index_to_name.json') as f:
     img_class_map = json.load(f)
 
-for img in ['IMG_6416.JPG', 'IMG_8102.HEIC', 'IMG_8103.HEIC', 'IMG_8105.HEIC', 'IMG_8106.HEIC', 'IMG_8107.HEIC']:
+for img in ['IMG_6416.JPG', 'IMG_8102.HEIC', 'IMG_8103.HEIC', 'IMG_8105.HEIC', 'IMG_8106.HEIC', 'IMG_8107.HEIC', 'cardboard.jpeg', 'glass.jpeg', 'glass2.jpeg', 'glass3.jpeg', 'paper.jpeg', 'trash.jpeg', 'trash2.jpeg', 'verre.png']:
     register_heif_opener()
 
     inference, confidence = model.infer(img)
     class_name = render_prediction(inference)
-    # make a percentage with 2 decimal points
     confidence = floor(confidence * 10000) / 100
 
     print(f'{img} - {class_name[0]} : {confidence}')
