@@ -20,6 +20,7 @@ def dashboard(request):
         if form.is_valid():
             anonyme_id = (str(time()) + request.META.get('REMOTE_ADDR')).replace('.', '')
             handle_uploaded_file(request.FILES.getlist('file'), anonyme_id)
+            convert_heic(anonyme_id)
             if len(request.FILES.getlist('file')) > 1:
                 check_for_duplicate(anonyme_id)
     return render(request, 'dashboard.html', context={'form': forms.UploadPictureToAnalyze})
@@ -31,16 +32,26 @@ def mse(image_a, image_b):
     return err
 
 
+def convert_heic(anonyme_id):
+    register_heif_opener()
+    for img in os.listdir('UPLOADED_IMAGES/'+anonyme_id+'/'):
+        if 'HEIC' in img.upper():
+            heic_to_png('UPLOADED_IMAGES/' + anonyme_id, img.upper())
+
+
+def is_already_compared(already_compared, img1, img2):
+    for img_list in already_compared:
+        if img1 in img_list and img2 in img_list:
+            return True
+    return False
+
+
 def check_for_duplicate(anonyme_id):
+    already_compared = []
     for img1 in os.listdir('UPLOADED_IMAGES/'+anonyme_id):
         for img2 in os.listdir('UPLOADED_IMAGES/'+anonyme_id):
-            if img1 != img2:
-                register_heif_opener()
-                if 'HEIC' in img1.upper():
-                    img1 = heic_to_png('UPLOADED_IMAGES/'+anonyme_id, img1.upper())
-                if 'HEIC' in img2.upper():
-                    img2 = heic_to_png('UPLOADED_IMAGES/'+anonyme_id, img2.upper())
-
+            if img1 != img2 and not is_already_compared(already_compared, img1, img2):
+                already_compared.append([img1, img2])
                 img1_pil = cv2.imread('UPLOADED_IMAGES/'+anonyme_id+'/'+img1)
                 img2_pil = cv2.imread('UPLOADED_IMAGES/'+anonyme_id+'/'+img2)
 
@@ -63,12 +74,10 @@ def heic_to_png(path, img):
     os.remove(path+'/'+img)
     img = img.split('.HEIC')[0] + ".png"
     cv2.imwrite(path+'/'+img, np_array)
-    return img
 
 
 def handle_uploaded_file(files, anonyme_id):
     for file in files:
-        print(file)
         save_dir = 'UPLOADED_IMAGES/' + anonyme_id + '/' + anonyme_id + '_' + file.name
         os.makedirs(os.path.dirname(save_dir), exist_ok=True)
         with open(save_dir, 'wb+') as destination:
