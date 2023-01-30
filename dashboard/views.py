@@ -22,6 +22,7 @@ def dashboard(request):
             handle_uploaded_file(request.FILES.getlist('file'), anonyme_id)
             convert_heic(anonyme_id)
             if len(request.FILES.getlist('file')) > 1:
+                resize_picture(anonyme_id)
                 check_for_duplicate(anonyme_id)
     return render(request, 'dashboard.html', context={'form': forms.UploadPictureToAnalyze})
 
@@ -30,6 +31,29 @@ def mse(image_a, image_b):
     err = np.sum((image_a.astype("float") - image_b.astype("float")) ** 2)
     err /= float(image_a.shape[0] * image_a.shape[1])
     return err
+
+
+def resize_picture(anonyme_id):
+    most_little = 0
+    little_img_cv2 = None
+    little_img = ''
+    for i, img in enumerate(os.listdir('UPLOADED_IMAGES/' + anonyme_id + '/')):
+        img_cv2 = cv2.imread('UPLOADED_IMAGES/' + anonyme_id + '/' + img)
+        size = img_cv2.shape[0] * img_cv2.shape[1]
+        if i == 0:
+            most_little = size
+            little_img_cv2 = img_cv2
+            little_img = img
+        if size < most_little:
+            most_little = size
+            little_img = img
+            little_img_cv2 = img_cv2
+
+    for img in os.listdir('UPLOADED_IMAGES/' + anonyme_id + '/'):
+        if img != little_img:
+            img_cv2 = cv2.imread('UPLOADED_IMAGES/' + anonyme_id + '/' + img)
+            img_cv2 = cv2.resize(img_cv2, (little_img_cv2.shape[1], little_img_cv2.shape[0]))
+            cv2.imwrite('UPLOADED_IMAGES/' + anonyme_id + '/'+img, img_cv2)
 
 
 def convert_heic(anonyme_id):
@@ -55,16 +79,9 @@ def check_for_duplicate(anonyme_id):
                 img1_pil = cv2.imread('UPLOADED_IMAGES/'+anonyme_id+'/'+img1)
                 img2_pil = cv2.imread('UPLOADED_IMAGES/'+anonyme_id+'/'+img2)
 
-                img1_pix = img1_pil.shape[0]*img1_pil.shape[1]
-                img2_pix = img2_pil.shape[0]*img2_pil.shape[1]
-
-                if img1_pix > img2_pix:
-                    img1_pil = cv2.resize(img1_pil, (img2_pil.shape[1], img2_pil.shape[0]), interpolation=cv2.INTER_AREA)
-                elif img1_pix < img2_pix:
-                    img2_pil = cv2.resize(img2_pil, (img1_pil.shape[1], img1_pil.shape[0]), interpolation=cv2.INTER_AREA)
-
                 ssim_res = ssim(img1_pil, img2_pil, channel_axis=-1)
-                print(f"{img1} VS. {img2} : {ssim_res}")
+                if ssim_res >= 0.90:
+                    os.remove('UPLOADED_IMAGES/'+anonyme_id+'/'+img1)
 
 
 def heic_to_png(path, img):
