@@ -32,5 +32,4 @@ urlpatterns = [
     path('user_profile/security/', user_profile.views.security, name="security"),
     path('rewards/', rewards.views.rewards, name="rewards"),
     path('rewards/claimed', rewards.views.claimed, name="claimed")
-
 ]
