@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_button %}
+{% endblock %}
+{% block content %}
+
+   <div class="row justify-content-center">
+          <div class="col-12 col-lg-10 col-xl-8">
+
+            <!-- Header -->
+            <div class="header md-5">
+              <div class="header-body">
+                <div class="row align-items-center">
+                  <div class="col">
+
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                      <li class="nav-item">
+                        <a href="{% url 'general' %}" class="nav-link">
+                          General
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{% url 'avatar' %}" class="nav-link active">
+                          Choose an avatar
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{% url 'security' %}" class="nav-link">
+                          Security
+                        </a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="row justify-content-between align-items-center mb-5">
+              <div class="col-12 col-md-9 col-xl-7">
+
+                <!-- Avatar -->
+                {% for image in images %}
+                    <div class="avatar">
+                      <img class="avatar-img rounded-circle" src="{% static 'pictures/'|add:image %}" alt="...">
+                    </div>
+                {% endfor %}
+
+              </div>
+            </div>
+            <br>
+          </div>
+       </div>
+
+{% endblock %}

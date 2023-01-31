@@ -18,6 +18,8 @@
         <!-- Theme CSS -->
         <link rel="stylesheet" href="{% static 'theme/css/theme.bundle.css' %}" />
 
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <!-- Title -->
         <title>Dashkit</title>
     </head>
@@ -64,7 +66,32 @@
                                 </a>
                             </li>
                         {% endif %}
-
+                        {% if 'user_profile' in request.path %}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'general' %}">
+                                    <i class="fe fe-user"></i> Profile
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'general' %}">
+                                    <i class="fe fe-user"></i> Profile
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if 'rewards' in request.path %}
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'rewards' %}">
+                                    <i class="fe fe-award"></i> Rewards
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'rewards' %}">
+                                    <i class="fe fe-award"></i> Rewards
+                                </a>
+                            </li>
+                        {% endif %}
                     </ul>
 
                 </div> <!-- / .navbar-collapse -->
@@ -86,12 +113,12 @@
 
                                 <!-- Pretitle -->
                                 <h6 class="header-pretitle">
-                                    Overview
+                                    {% block header_pretitle %}{% endblock %}
                                 </h6>
 
                                 <!-- Title -->
                                 <h1 class="header-title">
-                                    Dashboard
+                                    {% block header_title %}{% endblock %}
                                 </h1>
 
                             </div>
