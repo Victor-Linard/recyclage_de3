@@ -1,6 +1,7 @@
 import os
 from time import time
 import numpy as np
+from django.db.models import Sum
 from skimage.metrics import structural_similarity as ssim
 import cv2
 from django.shortcuts import render
@@ -9,6 +10,7 @@ from django.views.decorators.http import require_GET, require_http_methods
 import pillow_heif
 from PIL import Image
 from pillow_heif import register_heif_opener
+from .models import Dechet
 from math import floor
 import json
 from torchvision import datasets, transforms, models
@@ -35,7 +37,10 @@ def dashboard(request):
             if len(request.FILES.getlist('file')) > 1:
                 resize_picture(anonyme_id)
                 check_for_duplicate(anonyme_id)
-            detect_type_of_waste(anonyme_id)
+                detect_type_of_waste(anonyme_id)
+    elif request.method == 'GET':
+        recover_data()
+
     return render(request, 'dashboard.html', context={'form': forms.UploadPictureToAnalyze})
 
 
@@ -112,6 +117,13 @@ def handle_uploaded_file(files, anonyme_id):
         with open(save_dir, 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
+
+
+def recover_data():
+    tonnage_total_region_annee_type = Dechet.objects.values('ANNEE', 'C_REGION', 'C_TYP_REG_DECHET').annotate(tonnage_total=Sum('TONNAGE_T'))
+    tonnage_total_annee_type = Dechet.objects.values('ANNEE', 'C_TYP_REG_DECHET').annotate(tonnage_total=Sum('TONNAGE_T'))
+    print(tonnage_total_annee_type)
+    print(tonnage_total_region_annee_type)
 
 
 def detect_type_of_waste(anonyme_id):
