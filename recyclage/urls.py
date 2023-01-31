@@ -29,5 +29,4 @@ urlpatterns = [
     path('user_profile/', user_profile.views.general, name="general"),
     path('user_profile/avatar/', user_profile.views.avatar, name="avatar"),
     path('user_profile/security/', user_profile.views.security, name="security")
-
 ]

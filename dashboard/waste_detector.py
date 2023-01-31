@@ -48,7 +48,9 @@ class Net(nn.Module):
 
     def forward(self, xb):
         return torch.sigmoid(self.network(xb))
-class MyModel:
+
+
+class Model:
 
     def __init__(self, trained_weights: str, device: str):
         self.net = Net()
@@ -106,6 +108,9 @@ def to_device(data, device):
 
 
 def render_prediction(index):
+    img_class_map = None
+    with open('index_to_name.json') as f:
+        img_class_map = json.load(f)
     stridx = str(index)
     classname = 'Unknown'
     if img_class_map is not None:
@@ -115,13 +120,9 @@ def render_prediction(index):
     return classname
 
 
-model = MyModel('cnn2.pth', 'cpu')
+"""model = MyModel('cnn2.pth', 'cpu')
 CLASS_MAPPING = ['metal', 'plastic', 'cardboard', 'paper', 'trash', 'glass']
 COLORS = np.random.uniform(0, 255, size=(len(CLASS_MAPPING), 3))
-
-img_class_map = None
-with open('index_to_name.json') as f:
-    img_class_map = json.load(f)
 
 for img in ['IMG_6416.JPG', 'IMG_8102.HEIC', 'IMG_8103.HEIC', 'IMG_8105.HEIC', 'IMG_8106.HEIC', 'IMG_8107.HEIC', 'cardboard.jpeg', 'glass.jpeg', 'glass2.jpeg', 'glass3.jpeg', 'paper.jpeg', 'trash.jpeg', 'trash2.jpeg', 'verre.png']:
     register_heif_opener()
@@ -131,3 +132,4 @@ for img in ['IMG_6416.JPG', 'IMG_8102.HEIC', 'IMG_8103.HEIC', 'IMG_8105.HEIC', '
     confidence = floor(confidence * 10000) / 100
 
     print(f'{img} - {class_name[0]} : {confidence}')
+"""

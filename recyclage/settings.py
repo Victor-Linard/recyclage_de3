@@ -135,3 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'dashboard'
 
 AUTH_USER_MODEL = 'authenticate.User'
+
+TYPE_OF_WASTE = {'metal': 5, 'plastic': 2, 'cardboard': 3, 'paper': 3, 'trash': 1, 'glass': 4}
