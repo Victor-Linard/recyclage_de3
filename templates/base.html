@@ -18,6 +18,8 @@
         <!-- Theme CSS -->
         <link rel="stylesheet" href="{% static 'theme/css/theme.bundle.css' %}" />
 
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <!-- Title -->
         <title>Dashkit</title>
     </head>
@@ -77,12 +79,12 @@
 
                                 <!-- Pretitle -->
                                 <h6 class="header-pretitle">
-                                    Overview
+                                    {% block header_pretitle %}{% endblock %}
                                 </h6>
 
                                 <!-- Title -->
                                 <h1 class="header-title">
-                                    Dashboard
+                                    {% block header_title %}{% endblock %}
                                 </h1>
 
                             </div>

@@ -118,14 +118,14 @@ def detect_type_of_waste(anonyme_id):
     model = Model('./dashboard/cnn2.pth', 'cpu')
     CLASS_MAPPING = ['metal', 'plastic', 'cardboard', 'paper', 'trash', 'glass']
     COLORS = np.random.uniform(0, 255, size=(len(CLASS_MAPPING), 3))
-
+    scores = {'metal': 0, 'plastic': 0, 'cardboard': 0, 'paper': 0, 'trash': 0, 'glass': 0}
     for img in os.listdir('UPLOADED_IMAGES/' + anonyme_id):
         inference, confidence = model.infer('UPLOADED_IMAGES/' + anonyme_id+'/'+img)
         class_name = render_prediction(inference)
         confidence = floor(confidence * 10000) / 100
 
+        #scores[class_name[0]] +=
         print(f'{img} - {class_name[0]} : {confidence}')
-        return []
 
 
 class Net(nn.Module):
