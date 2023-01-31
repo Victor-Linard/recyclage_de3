@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_button %}
+{% endblock %}
+{% block content %}
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+       <div class="row justify-content-center">
+          <div class="col-12 col-lg-10 col-xl-8">
+
+            <!-- Header -->
+            <div class="header md-5">
+              <div class="header-body">
+                <div class="row align-items-center">
+                  <div class="col">
+
+                    <!-- Nav -->
+                    <ul class="nav nav-tabs nav-overflow header-tabs">
+                      <li class="nav-item">
+                        <a href="{% url 'general' %}" class="nav-link">
+                          General
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{% url 'avatar' %}" class="nav-link">
+                          Choose an avatar
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{% url 'security' %}" class="nav-link active">
+                          Security
+                        </a>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="row justify-content-between align-items-center mb-5">
+              <div class="col-12 col-md-9 col-xl-7">
+
+                <!-- Heading -->
+                <h2 class="mb-2">
+                  Change your password
+                </h2>
+
+              </div>
+            </div> <!-- / .row -->
+
+            <div class="row">
+              <div class="col-12 col-md-6 order-md-2">
+
+                <!-- Card -->
+                <div class="card bg-light border ms-md-4">
+                  <div class="card-body">
+
+                    <!-- Text -->
+                    <p class="mb-2">
+                      Password requirements
+                    </p>
+
+                    <!-- Text -->
+                    <p class="small text-muted mb-2">
+                      To create a new password, you have to meet all of the following requirements:
+                    </p>
+
+                    <!-- List group -->
+                    <ul class="small text-muted ps-4 mb-0">
+                      <li>
+                        Minimum 8 character
+                      </li>
+                      <li>
+                        At least one special character
+                      </li>
+                      <li>
+                        At least one number
+                      </li>
+                      <li>
+                        Can’t be the same as a previous password
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-12 col-md-6">
+
+                <!-- Form -->
+                <form>
+
+                  <!-- Password -->
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                      Current password
+                    </label>
+
+                    <!-- Input -->
+                    <input type="password" class="form-control">
+
+                  </div>
+
+                  <!-- New password -->
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                      New password
+                    </label>
+
+                    <!-- Input -->
+                    <input type="password" class="form-control">
+
+                  </div>
+
+                  <!-- Confirm new password -->
+                  <div class="form-group">
+
+                    <!-- Label -->
+                    <label class="form-label">
+                      Confirm new password
+                    </label>
+
+                    <!-- Input -->
+                    <input type="password" class="form-control">
+
+                  </div>
+
+                  <!-- Submit -->
+                  <button class="btn w-100 btn-primary lift" type="submit">
+                    Update password
+                  </button>
+
+                </form>
+
+              </div>
+            </div> <!-- / .row -->
+
+            <br>
+
+          </div>
+       </div> <!-- / .row -->
+
+    </div> <!-- / .main-content -->
+{% endblock %}
