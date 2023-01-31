@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authenticate',
     'dashboard',
-    'user_profile'
+    'user_profile',
+    'rewards'
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,8 @@ TEMPLATES = [
         'DIRS': [BASE_DIR / 'templates',
                  BASE_DIR / 'authenticate/templates/authenticate',
                  BASE_DIR / 'dashboard/templates/dashboard',
-                 BASE_DIR / 'user_profile/templates/user_profile']
+                 BASE_DIR / 'user_profile/templates/user_profile',
+                 BASE_DIR / 'rewards/templates/rewards']
         ,
         'APP_DIRS': True,
         'OPTIONS': {

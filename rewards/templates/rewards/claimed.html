@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_button %}
+{% endblock %}
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+
+            <!-- Header -->
+            <div class="header md-5">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+
+                            <!-- Nav -->
+                            <ul class="nav nav-tabs nav-overflow header-tabs">
+                                <li class="nav-item">
+                                    <a href="{% url 'rewards' %}" class="nav-link">
+                                        In Progress
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'claimed' %}" class="nav-link active">
+                                        Claimed
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text -->
+            <p class="text-muted">
+                You can find here the different rewards you have obtained, thank you for your commitment !
+            </p>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+
+                                    <!-- Avatar -->
+                                    <a class="avatar avatar-lg avatar-4by3">
+                                        <img src="{% static 'pictures/rewards/amazon5.png' %}" alt="..."
+                                             class="avatar-img rounded">
+                                    </a>
+
+                                </div>
+                                <div class="col ms-n2">
+
+                                    <!-- Title -->
+                                    <h4 class="mb-1">
+                                        <a href="https://www.amazon.fr">Amazon - 5€</a>
+                                    </h4>
+
+                                    <!-- Text -->
+                                    <p class="small text-muted mb-1">
+                                        <time datetime="2018-06-21">Claimed : <span id="myInput">xxxx-xxxx-xxxx</span></time>
+                                    </p>
+
+                                </div>
+                                <div class="col-auto">
+                                    <div>
+                                        <button class="btn btn-primary" onclick="myFunction()">
+                                            <span class="fe fe-copy"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div> <!-- / .card-body -->
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+
+                                    <!-- Avatar -->
+                                    <a class="avatar avatar-lg avatar-4by3">
+                                        <img src="{% static 'pictures/rewards/amazon5.png' %}" alt="..."
+                                             class="avatar-img rounded">
+                                    </a>
+
+                                </div>
+                                <div class="col ms-n2">
+
+                                    <!-- Title -->
+                                    <h4 class="mb-1">
+                                        <a href="https://www.amazon.fr">Amazon - 5€</a>
+                                    </h4>
+
+                                    <!-- Text -->
+                                    <p class="small text-muted mb-1">
+                                        <time datetime="2018-06-21">Claimed : <span id="myInput">xxxx-xxxx-xxxx</span></time>
+                                    </p>
+
+                                </div>
+                                <div class="col-auto">
+                                    <div>
+                                        <button class="btn btn-primary" onclick="myFunction()">
+                                            <span class="fe fe-copy"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div> <!-- / .card-body -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+
+                                    <!-- Avatar -->
+                                    <a class="avatar avatar-lg avatar-4by3">
+                                        <img src="{% static 'pictures/rewards/amazon5.png' %}" alt="..."
+                                             class="avatar-img rounded">
+                                    </a>
+
+                                </div>
+                                <div class="col ms-n2">
+
+                                    <!-- Title -->
+                                    <h4 class="mb-1">
+                                        <a href="https://www.amazon.fr">Amazon - 5€</a>
+                                    </h4>
+
+                                    <!-- Text -->
+                                    <p class="small text-muted mb-1">
+                                        <time datetime="2018-06-21">Claimed : <span id="myInput">xxxx-xxxx-xxxx</span></time>
+                                    </p>
+
+                                </div>
+                                <div class="col-auto">
+                                    <div>
+                                        <button class="btn btn-primary" onclick="myFunction()">
+                                            <span class="fe fe-copy"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div> <!-- / .card-body -->
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+
+                                    <!-- Avatar -->
+                                    <a class="avatar avatar-lg avatar-4by3">
+                                        <img src="{% static 'pictures/rewards/amazon5.png' %}" alt="..."
+                                             class="avatar-img rounded">
+                                    </a>
+
+                                </div>
+                                <div class="col ms-n2">
+
+                                    <!-- Title -->
+                                    <h4 class="mb-1">
+                                        <a href="https://www.amazon.fr">Amazon - 5€</a>
+                                    </h4>
+
+                                    <!-- Text -->
+                                    <p class="small text-muted mb-1">
+                                        <time datetime="2018-06-21">Claimed : <span id="myInput">xxxx-xxxx-xxxx</span></time>
+                                    </p>
+
+                                </div>
+                                <div class="col-auto">
+                                    <div>
+                                        <button class="btn btn-primary" onclick="myFunction()">
+                                            <span class="fe fe-copy"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> <!-- / .row -->
+                        </div> <!-- / .card-body -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div> <!-- / .row -->
+
+    <script>
+        function myFunction() {
+            // Get the text field
+            let copyText = document.getElementById("myInput").innerText;
+            console.log(copyText);
+            navigator.clipboard.writeText(copyText);
+        }
+    </script>
+
+{% endblock %}
