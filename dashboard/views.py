@@ -39,9 +39,9 @@ def dashboard(request):
                 check_for_duplicate(anonyme_id)
                 detect_type_of_waste(anonyme_id)
     elif request.method == 'GET':
-        recover_data()
+        tonnage_total_france, tonnage_total_annee_verre, tonnage_total_annee_plastique, tonnage_total_annee_menager, tonnage_total_region_annee_type, diff_tonnage_france_total, tonnage_total_verre, tonnage_total_plastique, tonnage_total_menager = recover_data()
 
-    return render(request, 'dashboard.html', context={'form': forms.UploadPictureToAnalyze})
+    return render(request, 'dashboard.html', context={'form': forms.UploadPictureToAnalyze, 'tonnage_total_france': tonnage_total_france, 'diff_tonnage_total_france' : int(diff_tonnage_france_total), 'tonnage_total_annee_verre' : tonnage_total_annee_verre, 'tonnage_total_annee_menager' : tonnage_total_annee_menager, 'tonnage_total_annee_plastique' : tonnage_total_annee_plastique, 'tonnage_total_verre' : tonnage_total_verre, 'tonnage_total_plastique': tonnage_total_plastique, 'tonnage_total_menager': tonnage_total_menager})
 
 
 def mse(image_a, image_b):
@@ -122,8 +122,24 @@ def handle_uploaded_file(files, anonyme_id):
 def recover_data():
     tonnage_total_region_annee_type = Dechet.objects.values('ANNEE', 'C_REGION', 'C_TYP_REG_DECHET').annotate(tonnage_total=Sum('TONNAGE_T'))
     tonnage_total_annee_type = Dechet.objects.values('ANNEE', 'C_TYP_REG_DECHET').annotate(tonnage_total=Sum('TONNAGE_T'))
-    print(tonnage_total_annee_type)
-    print(tonnage_total_region_annee_type)
+
+    tonnage_total_france = Dechet.objects.values('ANNEE').annotate(tonnage_total=Sum('TONNAGE_T'))
+
+    tonnage_total_france_annne_inf = int(tonnage_total_france.filter(ANNEE=2017).first().get('tonnage_total'))
+    tonnage_total_france = int(tonnage_total_france.filter(ANNEE=2019).first().get('tonnage_total'))
+    diff_tonnage_france_total = (tonnage_total_france - tonnage_total_france_annne_inf)/tonnage_total_france_annne_inf*100
+
+    tonnage_total_annee_verre = int(tonnage_total_annee_type.filter(ANNEE=2019, C_TYP_REG_DECHET='08C').first().get('tonnage_total'))
+    tonnage_total_annee_plastique = int(tonnage_total_annee_type.filter(ANNEE=2019, C_TYP_REG_DECHET='08B').first().get('tonnage_total'))
+    tonnage_total_annee_menager = int(tonnage_total_annee_type.filter(ANNEE=2019, C_TYP_REG_DECHET='08A').first().get('tonnage_total'))
+
+    tonnage_total_verre = [int(item.get('tonnage_total')) for item in sorted(tonnage_total_annee_type.filter(C_TYP_REG_DECHET='08C'), key=lambda x: x.get('ANNEE'))]
+    tonnage_total_plastique = [int(item.get('tonnage_total')) for item in sorted(tonnage_total_annee_type.filter(C_TYP_REG_DECHET='08B'), key=lambda x: x.get('ANNEE'))]
+    tonnage_total_menager = [int(item.get('tonnage_total')) for item in sorted(tonnage_total_annee_type.filter(C_TYP_REG_DECHET='08A'), key=lambda x: x.get('ANNEE'))]
+
+    print(tonnage_total_annee_type.filter(ANNEE=2019, C_TYP_REG_DECHET='08C').first())
+    return tonnage_total_france, tonnage_total_annee_verre,tonnage_total_annee_plastique,tonnage_total_annee_menager, tonnage_total_region_annee_type,diff_tonnage_france_total, tonnage_total_verre, tonnage_total_plastique, tonnage_total_menager
+
 
 
 def detect_type_of_waste(anonyme_id):

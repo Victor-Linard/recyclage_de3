@@ -12,6 +12,7 @@
     </button>
 {% endblock %}
 {% block content %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
     <div class="modal" id="modalUploadPictureToAnalyze" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -48,12 +49,18 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      T 24500
+                      {{ tonnage_total_france }}
                     </span>
 
                     <!-- Badge -->
-                    <span class="badge bg-success-soft mt-n1">
-                      -2.5%
+                      {% if diff_tonnage_total_france < 0 %}
+                           <span class="badge bg-success-soft mt-n1">
+                          - {{ diff_tonnage_total_france }} %
+                      {% else %}
+                           <span class="badge bg-danger-soft mt-n1">
+                          + {{ diff_tonnage_total_france }} %
+                      {% endif %}
+
                     </span>
                   </div>
                   <div class="col-auto">
@@ -82,14 +89,16 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      763.5
+                      {{ tonnage_total_annee_verre }} T
                     </span>
 
                   </div>
                   <div class="col-auto">
 
-                    <!-- Icon -->
-                    <span class="h2 fe fe-briefcase text-muted mb-0"></span>
+                    <!-- Chart -->
+                    <div class="chart chart-sparkline">
+                        <canvas class="chart-canvas" id="chart_verre" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
+                    </div>
 
                   </div>
                 </div> <!-- / .row -->
@@ -112,7 +121,7 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      35.5%
+                      {{ tonnage_total_annee_plastique }} T
                     </span>
 
                   </div>
@@ -120,7 +129,7 @@
 
                     <!-- Chart -->
                     <div class="chart chart-sparkline">
-                      <canvas class="chart-canvas" id="sparklineChart" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="150" height="70"></canvas>
+                        <canvas class="chart-canvas" id="chart_plastique" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
                     </div>
 
                   </div>
@@ -144,14 +153,16 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      1456,7 T
+                      {{ tonnage_total_annee_menager }} T
                     </span>
 
                   </div>
                   <div class="col-auto">
 
-                    <!-- Icon -->
-                    <span class="h2 fe fe-clock text-muted mb-0"></span>
+                    <!-- Chart -->
+                    <div class="chart chart-sparkline">
+                        <canvas class="chart-canvas" id="chart_menager" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
+                    </div>
 
                   </div>
                 </div> <!-- / .row -->
@@ -160,4 +171,122 @@
 
           </div>
         </div>
+{% endblock %}
+
+
+{% block dashboard_chart %}
+<script>
+    const chart = document.getElementById('chart_plastique');
+    new Chart(chart, {
+    type: 'line',
+    options: {
+      scales: {
+        y: {
+          display: false
+        },
+        x: {
+          display: false
+        }
+      },
+      elements: {
+        line: {
+          borderWidth: 2,
+          borderColor: '#D2DDEC'
+        },
+        point: {
+          hoverRadius: 0
+        }
+      },
+      plugins: {
+        tooltip: {
+          external: function() {
+            return false;
+          }
+        }
+      }
+    },
+    data: {
+      labels: new Array(6).fill('Label'),
+      datasets: [{
+        data: {{ tonnage_total_plastique | safe }}
+      }]
+    }
+    });
+
+    const chart_plastique = document.getElementById('chart_verre');
+    new Chart(chart_plastique, {
+    type: 'line',
+    options: {
+      scales: {
+        y: {
+          display: false
+        },
+        x: {
+          display: false
+        }
+      },
+      elements: {
+        line: {
+          borderWidth: 2,
+          borderColor: '#D2DDEC'
+        },
+        point: {
+          hoverRadius: 0
+        }
+      },
+      plugins: {
+        tooltip: {
+          external: function() {
+            return false;
+          }
+        }
+      }
+    },
+    data: {
+      labels: new Array(6).fill('Label'),
+      datasets: [{
+        data: {{ tonnage_total_verre | safe }}
+      }]
+    }
+    });
+
+
+    const chart_menager = document.getElementById('chart_menager');
+    new Chart(chart_menager, {
+    type: 'line',
+    options: {
+      scales: {
+        y: {
+          display: false
+        },
+        x: {
+          display: false
+        }
+      },
+      elements: {
+        line: {
+          borderWidth: 2,
+          borderColor: '#D2DDEC'
+        },
+        point: {
+          hoverRadius: 0
+        }
+      },
+      plugins: {
+        tooltip: {
+          external: function() {
+            return false;
+          }
+        }
+      }
+    },
+    data: {
+      labels: new Array(6).fill('Label'),
+      datasets: [{
+        data: {{ tonnage_total_menager | safe }}
+      }]
+    }
+    });
+
+</script>
 {% endblock %}
