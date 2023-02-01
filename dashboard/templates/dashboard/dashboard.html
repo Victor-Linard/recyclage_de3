@@ -176,8 +176,9 @@
 
 {% block dashboard_chart %}
 <script>
-    const chart = document.getElementById('chart_plastique');
-    new Chart(chart, {
+    function createChart(elementId, tonnageData) {
+  const chart = document.getElementById(elementId);
+  new Chart(chart, {
     type: 'line',
     options: {
       scales: {
@@ -208,85 +209,16 @@
     data: {
       labels: new Array(6).fill('Label'),
       datasets: [{
-        data: {{ tonnage_total_plastique | safe }}
+        data: tonnageData
       }]
     }
-    });
+  });
+}
 
-    const chart_plastique = document.getElementById('chart_verre');
-    new Chart(chart_plastique, {
-    type: 'line',
-    options: {
-      scales: {
-        y: {
-          display: false
-        },
-        x: {
-          display: false
-        }
-      },
-      elements: {
-        line: {
-          borderWidth: 2,
-          borderColor: '#D2DDEC'
-        },
-        point: {
-          hoverRadius: 0
-        }
-      },
-      plugins: {
-        tooltip: {
-          external: function() {
-            return false;
-          }
-        }
-      }
-    },
-    data: {
-      labels: new Array(6).fill('Label'),
-      datasets: [{
-        data: {{ tonnage_total_verre | safe }}
-      }]
-    }
-    });
+createChart('chart_plastique', {{ tonnage_total_plastique }});
+createChart('chart_verre', {{ tonnage_total_verre }});
+createChart('chart_menager', {{ tonnage_total_menager }});
 
-
-    const chart_menager = document.getElementById('chart_menager');
-    new Chart(chart_menager, {
-    type: 'line',
-    options: {
-      scales: {
-        y: {
-          display: false
-        },
-        x: {
-          display: false
-        }
-      },
-      elements: {
-        line: {
-          borderWidth: 2,
-          borderColor: '#D2DDEC'
-        },
-        point: {
-          hoverRadius: 0
-        }
-      },
-      plugins: {
-        tooltip: {
-          external: function() {
-            return false;
-          }
-        }
-      }
-    },
-    data: {
-      labels: new Array(6).fill('Label'),
-      datasets: [{
-        data: {{ tonnage_total_menager | safe }}
-      }]
-    }
-    });
 
 </script>
 {% endblock %}
