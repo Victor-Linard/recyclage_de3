@@ -19,6 +19,7 @@ import torch.nn as nn
 import json
 import os
 import certifi
+from django.conf import settings
 
 os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 os.environ["SSL_CERT_FILE"] = certifi.where()
@@ -37,7 +38,7 @@ def dashboard(request):
             if len(request.FILES.getlist('file')) > 1:
                 resize_picture(anonyme_id)
                 check_for_duplicate(anonyme_id)
-                detect_type_of_waste(anonyme_id)
+            detect_type_of_waste(anonyme_id)
     elif request.method == 'GET':
         recover_data()
 
@@ -126,18 +127,22 @@ def recover_data():
     print(tonnage_total_region_annee_type)
 
 
-def detect_type_of_waste(anonyme_id):
+def detect_type_of_waste(anonyme_id=None):
+    type_of_waste = getattr(settings, 'TYPE_OF_WASTE')
     model = Model('./dashboard/cnn2.pth', 'cpu')
     CLASS_MAPPING = ['metal', 'plastic', 'cardboard', 'paper', 'trash', 'glass']
     COLORS = np.random.uniform(0, 255, size=(len(CLASS_MAPPING), 3))
     scores = {'metal': 0, 'plastic': 0, 'cardboard': 0, 'paper': 0, 'trash': 0, 'glass': 0}
-    for img in os.listdir('UPLOADED_IMAGES/' + anonyme_id):
-        inference, confidence = model.infer('UPLOADED_IMAGES/' + anonyme_id+'/'+img)
-        class_name = render_prediction(inference)
-        confidence = floor(confidence * 10000) / 100
-
-        #scores[class_name[0]] +=
-        print(f'{img} - {class_name[0]} : {confidence}')
+    for img in os.listdir('UPLOADED_IMAGES/' + (anonyme_id + '/' if anonyme_id else '')):
+        if anonyme_id is not None or img.endswith('.jpg'):
+            inference, confidence = model.infer('UPLOADED_IMAGES/' + (anonyme_id + '/' if anonyme_id else '') + img)
+            class_name = render_prediction(inference)
+            confidence = floor(confidence * 10000) / 100
+            scores[class_name[0]] += type_of_waste[class_name[0]]
+            scores = {key: value for key, value in scores.items() if value != 0}
+            print(f'{img} - {class_name[0]} : {confidence}')
+            print(scores)
+            return scores
 
 
 class Net(nn.Module):
