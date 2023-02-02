@@ -171,6 +171,29 @@
 
           </div>
         </div>
+    <div class="row">
+        <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
+      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="0">
+        <a class="nav-link active" href="#" data-bs-toggle="tab">
+          All
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="1">
+        <a class="nav-link" href="#" data-bs-toggle="tab">
+          Direct
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="2">
+        <a class="nav-link" href="#" data-bs-toggle="tab">
+          Organic
+        </a>
+      </li>
+    </ul>
+
+    <div class="chart">
+      <canvas id="chart_global" class="chart-canvas"></canvas>
+    </div>
+    </div>
 {% endblock %}
 
 
@@ -218,6 +241,37 @@
 createChart('chart_plastique', {{ tonnage_total_plastique }});
 createChart('chart_verre', {{ tonnage_total_verre }});
 createChart('chart_menager', {{ tonnage_total_menager }});
+
+const chart = document.getElementById(chart_global);
+ new Chart('chart_global', {
+    type: 'line',
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            callback: function(value) {
+              return '$' + value + 'k';
+            }
+          }
+        }
+      }
+    },
+    data: {
+      labels: ['Oct 1', 'Oct 3', 'Oct 6', 'Oct 9', 'Oct 12', 'Oct 5', 'Oct 18', 'Oct 21', 'Oct 24', 'Oct 27', 'Oct 30'],
+      datasets: [{
+        label: 'All',
+        data: [0, 10, 5, 15, 10, 20, 15, 25, 20, 30, 25]
+      }, {
+        label: 'Direct',
+        data: [7, 40, 12, 27, 34, 17, 19, 30, 28, 32, 24],
+        hidden: true
+      }, {
+        label: 'Organic',
+        data: [2, 12, 35, 25, 36, 25, 34, 16, 4, 14, 15],
+        hidden: true
+      }]
+    }
+  });
 
 
 </script>
