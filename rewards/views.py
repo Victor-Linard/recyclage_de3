@@ -6,6 +6,6 @@ from django.shortcuts import render
 def rewards(request):
     return render(request, 'rewards.html', context={})
 
+
 def claimed(request):
     return render(request, 'claimed.html', context={})
-
