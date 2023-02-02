@@ -1,148 +1,202 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="fr">
-    <!-- Head -->
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Head -->
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="{% static 'theme/favicon/favicon.ico' %}" type="image/x-icon"/>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'theme/favicon/favicon.ico' %}" type="image/x-icon"/>
 
-        <!-- Map CSS -->
-        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" />
+    <!-- Map CSS -->
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"/>
 
-        <!-- Libs CSS -->
-        <link rel="stylesheet" href="{% static 'theme/css/libs.bundle.css' %}" />
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{% static 'theme/css/libs.bundle.css' %}"/>
 
-        <!-- Theme CSS -->
-        <link rel="stylesheet" href="{% static 'theme/css/theme.bundle.css' %}" />
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'theme/css/theme.bundle.css' %}"/>
 
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <!-- Title -->
-        <title>Dashkit</title>
-    </head>
+    <!-- Title -->
+    <title>Dashkit</title>
+</head>
 
-    <body>
-        <!-- NAVIGATION -->
-        <nav class="navbar navbar-vertical fixed-start navbar-expand-md navbar-light" id="sidebar">
-            <div class="container-fluid">
+<body>
+<!-- NAVIGATION -->
+<nav class="navbar navbar-vertical fixed-start navbar-expand-md navbar-light" id="sidebar">
+    <div class="container-fluid">
 
-                <!-- Toggler -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse"
-                        aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse"
+                aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <!-- Brand -->
-                <a class="navbar-brand" href="">
-                    <img src="{% static 'pictures/logo.png' %}" class="navbar-brand-img mx-auto" alt="...">
-                </a>
+        <!-- Brand -->
+        <a class="navbar-brand" href="">
+            <img src="{% static 'pictures/logo.png' %}" class="navbar-brand-img mx-auto" alt="...">
+        </a>
 
-                <!-- Collapse -->
-                <div class="collapse navbar-collapse" id="sidebarCollapse">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidebarCollapse">
 
-                    <!-- Navigation -->
-                    <ul class="navbar-nav">
-                        {% if 'dashboard' in request.path %}
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'dashboard' %}">
-                                    <i class="fe fe-home"></i> Dashboards
-                                </a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'dashboard' %}">
-                                    <i class="fe fe-home"></i> Dashboards
-                                </a>
-                            </li>
-                        {% endif %}
-                        <!-- On vérifie si l'utilisateur est connecté, si oui on affichera son nom et sinon on affiche la possibilité de se connecter -->
-                        {% if not user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'signin' %}">
-                                    <i class="fe fe-user"></i> Sign-in
-                                </a>
-                            </li>
-                        {% endif %}
-                        {% if 'user_profile' in request.path %}
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'general' %}">
-                                    <i class="fe fe-user"></i> Profile
-                                </a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'general' %}">
-                                    <i class="fe fe-user"></i> Profile
-                                </a>
-                            </li>
-                        {% endif %}
-                        {% if 'rewards' in request.path %}
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'rewards' %}">
-                                    <i class="fe fe-award"></i> Rewards
-                                </a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'rewards' %}">
-                                    <i class="fe fe-award"></i> Rewards
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
+            <!-- Navigation -->
+            <ul class="navbar-nav">
+                {% if 'dashboard' in request.path %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'dashboard' %}">
+                            <i class="fe fe-home"></i> Dashboards
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                            <i class="fe fe-home"></i> Dashboards
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    {% if 'user_profile' in request.path %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'general' %}">
+                                <i class="fe fe-user"></i> {{ user.first_name|add:" "|add:user.last_name }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'general' %}">
+                                <i class="fe fe-user"></i> {{ user.first_name|add:" "|add:user.last_name }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'general' %}" disabled="True">
+                            <i class="fe fe-user"></i> Profile <span class="fe fe-lock"></span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    {% if 'rewards' in request.path %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'rewards' %}">
+                                <i class="fe fe-award"></i> Rewards
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'rewards' %}">
+                                <i class="fe fe-award"></i> Rewards
+                            </a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'rewards' %}" disabled="True">
+                            <i class="fe fe-award"></i> Rewards <span class="fe fe-lock"></span>
+                        </a>
+                    </li>
+                {% endif %}
+                <!-- On vérifie si l'utilisateur est connecté, si oui on affichera son nom et sinon on affiche la possibilité de se connecter -->
+                {% if not user.is_authenticated %}
+                    <li class="navbar-user nav-item">
+                        <a class="nav-link" href="{% url 'signin' %}">
+                            <i class="fe fe-log-in"></i> Sign-in
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li class="navbar-user nav-item">
+                        <a class="nav-link" href="{% url 'signout' %}">
+                            <i class="fe fe-log-out"></i> Log Out
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
 
-                </div> <!-- / .navbar-collapse -->
+        </div> <!-- / .navbar-collapse -->
 
-            </div>
-        </nav>
+    </div>
+</nav>
 
-        <!-- MAIN CONTENT -->
-        <div class="main-content">
+<!-- MAIN CONTENT -->
+<div class="main-content">
 
-            <!-- HEADER -->
-            <div class="header">
-                <div class="container-fluid">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="container-fluid">
 
-                    <!-- Body -->
-                    <div class="header-body">
-                        <div class="row align-items-end">
-                            <div class="col">
+            <!-- Body -->
+            <div class="header-body">
+                <div class="row align-items-end">
+                    <div class="col">
 
-                                <!-- Pretitle -->
-                                <h6 class="header-pretitle">
-                                    {% block header_pretitle %}{% endblock %}
-                                </h6>
+                        <!-- Pretitle -->
+                        <h6 class="header-pretitle">
+                            {% block header_pretitle %}{% endblock %}
+                        </h6>
 
-                                <!-- Title -->
-                                <h1 class="header-title">
-                                    {% block header_title %}{% endblock %}
-                                </h1>
+                        <!-- Title -->
+                        <h1 class="header-title">
+                            {% block header_title %}{% endblock %}
+                        </h1>
 
+                    </div>
+                    <div class="col-auto">
+                        {% if user.is_authenticated %}
+                            <div class="d-flex align-items-center">
+                                <div class="avatar mr-3">
+                                    <img class="avatar-img rounded-circle"
+                                         src="{% static 'pictures/levels/'|add:level_label.level.label_image %}"
+                                         alt="...">
+                                </div>
+                                <div>
+                                    <p class="small text-muted mb-1">
+                                        <time datetime="2018-06-21">{{ level_label.level.label }}</time>
+                                    </p>
+                                    <div class="row align-items-center g-0">
+                                        <div class="col-auto">
+
+                                            <!-- Value -->
+                                            <div class="small me-2">{% widthratio user.exp level_label.level.exp_level_up 100 %}%</div>
+
+                                        </div>
+                                        <div class="col">
+
+                                            <!-- Progress -->
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar" role="progressbar"
+                                                     style="width: {% widthratio user.exp level_label.level.exp_level_up 100 %}%"
+                                                     aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-auto">
-                            {% block header_level %}
-                            {% endblock %}
-                            </div>
-                            <div class="col-auto">
-                            {% block header_button %}
-                            {% endblock %}
-                            </div>
-                        </div> <!-- / .row -->
-                    </div> <!-- / .header-body -->
+                        {% endif %}
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-outline-success lift" data-bs-toggle="modal"
+                                data-bs-target="#modalUploadPictureToAnalyze">
+                            <span class="fe fe-video text-danger"></span> Scanner
+                        </button>
+                    </div>
+                </div> <!-- / .row -->
+            </div> <!-- / .header-body -->
 
-                </div>
-            </div> <!-- / .header -->
-            <div class="container-fluid">
-            {% block content %}
-            {% endblock %}
-            </div>
         </div>
-        <script src="{% static 'theme/js/theme.bundle.js' %}"></script>
-        <script src="{% static 'theme/js/vendor.bundle.js' %}"></script>
-        {% block dashboard_chart %}
+    </div> <!-- / .header -->
+    <div class="container-fluid">
+        {% block content %}
         {% endblock %}
-    </body>
+    </div>
+</div>
+<script src="{% static 'theme/js/theme.bundle.js' %}"></script>
+<script src="{% static 'theme/js/vendor.bundle.js' %}"></script>
+{% block dashboard_chart %}
+{% endblock %}
+</body>
 </html>

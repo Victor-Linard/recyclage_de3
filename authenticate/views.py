@@ -69,4 +69,4 @@ def generate_unique_key():
 @require_GET
 def signout_user(request):
     logout(request)
-    return redirect('dashboard')
+    return redirect('signin')
