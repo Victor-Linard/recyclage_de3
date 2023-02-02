@@ -1,7 +1,8 @@
 from time import time
+import certifi
 from django.db.models import Sum
 from django.shortcuts import render
-
+import os
 from authenticate.models import User
 from capture_image import forms
 from django.views.decorators.http import require_GET, require_http_methods
@@ -9,10 +10,15 @@ from .models import Dechet
 from capture_image.views import handle_uploaded_file, detect_type_of_waste, convert_heic, resize_picture, check_for_duplicate
 
 
+os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
+os.environ["SSL_CERT_FILE"] = certifi.where()
+
 # Create your views here.
+
 
 @require_http_methods(["GET", "POST"])
 def dashboard(request):
+    tonnage_total_france, tonnage_total_annee_verre, tonnage_total_annee_plastique, tonnage_total_annee_menager, tonnage_total_region_annee_type, diff_tonnage_france_total, tonnage_total_verre, tonnage_total_plastique, tonnage_total_menager = recover_data()
     if request.user.is_authenticated:
         level_label = User.objects.select_related('level').get(pk=request.user.id)
     else:
@@ -27,10 +33,7 @@ def dashboard(request):
                 resize_picture(anonyme_id)
                 check_for_duplicate(anonyme_id)
             detect_type_of_waste(request.user, anonyme_id)
-    elif request.method == 'GET':
-        tonnage_total_france, tonnage_total_annee_verre, tonnage_total_annee_plastique, tonnage_total_annee_menager, tonnage_total_region_annee_type, diff_tonnage_france_total, tonnage_total_verre, tonnage_total_plastique, tonnage_total_menager = recover_data()
-        return render(request, 'dashboard.html', context={'level_label': level_label, 'form': forms.UploadPictureToAnalyze, 'tonnage_total_france': round(tonnage_total_france/1000, 3), 'diff_tonnage_total_france' : round(diff_tonnage_france_total, 3), 'tonnage_total_annee_verre' : round(tonnage_total_annee_verre/1000, 3), 'tonnage_total_annee_menager' : round(tonnage_total_annee_menager/1000, 3), 'tonnage_total_annee_plastique' : round(tonnage_total_annee_plastique/1000, 3), 'tonnage_total_verre' : tonnage_total_verre, 'tonnage_total_plastique': tonnage_total_plastique, 'tonnage_total_menager': tonnage_total_menager})
-    return render(request, 'dashboard.html', context={'level_label': level_label, 'form': forms.UploadPictureToAnalyze})
+    return render(request, 'dashboard.html', context={'level_label': level_label, 'form': forms.UploadPictureToAnalyze, 'tonnage_total_france': round(tonnage_total_france/1000, 3), 'diff_tonnage_total_france' : round(diff_tonnage_france_total, 3), 'tonnage_total_annee_verre' : round(tonnage_total_annee_verre/1000, 3), 'tonnage_total_annee_menager' : round(tonnage_total_annee_menager/1000, 3), 'tonnage_total_annee_plastique' : round(tonnage_total_annee_plastique/1000, 3), 'tonnage_total_verre' : tonnage_total_verre, 'tonnage_total_plastique': tonnage_total_plastique, 'tonnage_total_menager': tonnage_total_menager})
 
 
 def recover_data():
