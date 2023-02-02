@@ -3,7 +3,10 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_GET, require_http_methods
 from django.views.generic import View
 from recyclage import settings
+from rewards.models import Keys, Rewards
 from . import forms
+import secrets
+import re
 
 # Create your views here.
 
@@ -40,9 +43,27 @@ def signup_page(request):
         form = forms.SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
+            rewards_keys(user)
             login(request, user)
             return redirect(settings.LOGIN_REDIRECT_URL)
     return render(request, 'authenticate/signup.html', context={'form': form})
+
+
+def rewards_keys(user):
+    reward_user = Keys()
+    rewards = Rewards.objects.all()
+    print(rewards)
+    for reward in rewards:
+        reward_user.key = generate_unique_key()
+        reward_user.reward_id = reward.id
+        reward_user.user_id = user.id
+        reward_user.save()
+
+
+def generate_unique_key():
+    key = secrets.token_hex(6)
+    key = re.sub("(.{4})", "\\1-", key, count=2)
+    return key
 
 
 @require_GET

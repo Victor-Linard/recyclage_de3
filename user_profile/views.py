@@ -1,18 +1,20 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 import os
+from authenticate.models import User
+
 
 # Create your views here.
 
+
 @login_required(login_url='/signin/')
 def general(request):
-    return render(request, 'general.html', context={})
+    level_label = User.objects.select_related('level').get(pk=request.user.id)
+    return render(request, 'general.html', context={"level_label": level_label})
 
-def avatar(request):
-    path = os.path.dirname(os.path.dirname(__file__)) + "/static/pictures/"
-    images = os.listdir(path)
-    print(images)
-    return render(request, 'avatar.html', context={"images": images})
 
 def security(request):
-    return render(request, 'security.html', context={})
+    level_label = User.objects.select_related('level').get(pk=request.user.id)
+    return render(request, 'security.html', context={"level_label": level_label})
+
+

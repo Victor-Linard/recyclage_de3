@@ -8,20 +8,20 @@
 {% endblock %}
 {% block header_button %}
     <p class="small text-muted mb-1">
-        <time datetime="2018-06-21">Le Giga Recycleur</time>
+        <time datetime="2018-06-21">{{ level_label.level.label }}</time>
     </p>
     <div class="row align-items-center g-0">
         <div class="col-auto">
 
             <!-- Value -->
-            <div class="small me-2">29%</div>
+            <div class="small me-2">{% widthratio user.exp level_label.level.exp_level_up 100 %}%</div>
 
         </div>
         <div class="col">
 
             <!-- Progress -->
             <div class="progress progress-sm">
-                <div class="progress-bar" role="progressbar" style="width: 29%" aria-valuenow="29"
+                <div class="progress-bar" role="progressbar" style="width: {% widthratio user.exp level_label.level.exp_level_up 100 %}%" aria-valuenow="29"
                      aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
@@ -68,8 +68,7 @@
 
                                 <!-- Avatar -->
                                 <div class="avatar">
-                                    <img class="avatar-img rounded-circle" src="../static/pictures/profile/animal.jpg"
-                                         alt="...">
+                                    <img class="avatar-img rounded-circle" src="{% static 'pictures/levels/'|add:level_label.level.label_image %}" alt="...">
                                 </div>
 
                             </div>
@@ -77,7 +76,7 @@
 
                                 <!-- Heading -->
                                 <h4 class="mb-1">
-                                    Le Giga Recycleur
+                                    {{ level_label.level.label }}
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMembers">
                                         <span class="fe fe-info"></span>
                                     </button>
