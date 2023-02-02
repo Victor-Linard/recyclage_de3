@@ -49,13 +49,13 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      {{ tonnage_total_france }}
+                      {{ tonnage_total_france }} kT
                     </span>
 
                     <!-- Badge -->
                       {% if diff_tonnage_total_france < 0 %}
                            <span class="badge bg-success-soft mt-n1">
-                          - {{ diff_tonnage_total_france }} %
+                          {{ diff_tonnage_total_france }} %
                       {% else %}
                            <span class="badge bg-danger-soft mt-n1">
                           + {{ diff_tonnage_total_france }} %
@@ -89,7 +89,7 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      {{ tonnage_total_annee_verre }} T
+                      {{ tonnage_total_annee_verre }} kT
                     </span>
 
                   </div>
@@ -121,7 +121,7 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      {{ tonnage_total_annee_plastique }} T
+                      {{ tonnage_total_annee_plastique }} kT
                     </span>
 
                   </div>
@@ -153,7 +153,7 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      {{ tonnage_total_annee_menager }} T
+                      {{ tonnage_total_annee_menager }} kT
                     </span>
 
                   </div>
@@ -171,42 +171,29 @@
 
           </div>
         </div>
-    <div class="row">
-        <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
-      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="0">
-        <a class="nav-link active" href="#" data-bs-toggle="tab">
-          All
-        </a>
-      </li>
-      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="1">
-        <a class="nav-link" href="#" data-bs-toggle="tab">
-          Direct
-        </a>
-      </li>
-      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="2">
-        <a class="nav-link" href="#" data-bs-toggle="tab">
-          Organic
-        </a>
-      </li>
-    </ul>
+     <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="chart">
+                        <canvas id="chart_global" class="chart-canvas" style="display: block; box-sizing: border-box; height: 100%; width: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
 
-    <div class="chart">
-      <canvas id="chart_global" class="chart-canvas"></canvas>
-    </div>
-    </div>
-{% endblock %}
-
-
-{% block dashboard_chart %}
-<script>
-    function createChart(elementId, tonnageData) {
+    <script>
+function createChart(elementId, tonnageData) {
   const chart = document.getElementById(elementId);
   new Chart(chart, {
     type: 'line',
     options: {
       scales: {
         y: {
-          display: false
+          display: false,
+          ticks: {
+            beginAtZero: true
+          }
         },
         x: {
           display: false
@@ -218,21 +205,30 @@
           borderColor: '#D2DDEC'
         },
         point: {
-          hoverRadius: 0
+          radius: 0
         }
       },
-      plugins: {
-        tooltip: {
-          external: function() {
-            return false;
+        plugins: {
+          legend: {
+              display: false,
+              labels:{
+                  display: false
+              }
           }
-        }
+        },
+      tooltips: {
+        enabled: false
       }
     },
     data: {
       labels: new Array(6).fill('Label'),
       datasets: [{
-        data: tonnageData
+        label: '',
+        showLabels: false,
+        data: tonnageData,
+        borderWidth: 2,
+        borderColor: '#D2DDEC',
+        pointRadius: 0
       }]
     }
   });
@@ -242,32 +238,40 @@ createChart('chart_plastique', {{ tonnage_total_plastique }});
 createChart('chart_verre', {{ tonnage_total_verre }});
 createChart('chart_menager', {{ tonnage_total_menager }});
 
-const chart = document.getElementById(chart_global);
+const chart = document.getElementById("chart_global");
  new Chart('chart_global', {
     type: 'line',
     options: {
-      scales: {
-        y: {
-          ticks: {
-            callback: function(value) {
-              return '$' + value + 'k';
-            }
+        scales: {
+            y: {
+              ticks: {
+                    callback: function(value) {
+                        return + value/1000 + ' kT';
+                    }
+                }
+            },
+            x: {
+              display: false
+            },
+        },
+       elements:{
+          line:{
+              tension:0.4
           }
-        }
       }
     },
     data: {
-      labels: ['Oct 1', 'Oct 3', 'Oct 6', 'Oct 9', 'Oct 12', 'Oct 5', 'Oct 18', 'Oct 21', 'Oct 24', 'Oct 27', 'Oct 30'],
+      labels: ['2009', '2011', '2013', '2015', '2017', '2019'],
       datasets: [{
-        label: 'All',
-        data: [0, 10, 5, 15, 10, 20, 15, 25, 20, 30, 25]
+        label: 'Plastique',
+        data: {{ tonnage_total_plastique }}
       }, {
-        label: 'Direct',
-        data: [7, 40, 12, 27, 34, 17, 19, 30, 28, 32, 24],
+        label: 'Verre',
+        data: {{ tonnage_total_verre }},
         hidden: true
       }, {
-        label: 'Organic',
-        data: [2, 12, 35, 25, 36, 25, 34, 16, 4, 14, 15],
+        label: 'Menager',
+        data: {{ tonnage_total_menager }},
         hidden: true
       }]
     }
@@ -275,4 +279,10 @@ const chart = document.getElementById(chart_global);
 
 
 </script>
+
+{% endblock %}
+
+
+{% block dashboard_chart %}
+
 {% endblock %}
