@@ -20,9 +20,11 @@ import dashboard.views
 import rewards.views
 import user_profile.views
 import capture_image.views
+import home.views
 
 
 urlpatterns = [
+    path('', home.views.home, name="home"),
     path('admin/', admin.site.urls),
     path('signin/', authenticate.views.SigninPageView.as_view(), name="signin"),
     path('signup/', authenticate.views.signup_page, name="signup"),

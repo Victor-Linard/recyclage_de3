@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'dashboard',
     'user_profile',
     'rewards',
-    'capture_image'
+    'capture_image',
+    'home'
 ]
 
 MIDDLEWARE = [
@@ -66,7 +67,8 @@ TEMPLATES = [
                  BASE_DIR / 'dashboard/templates/dashboard',
                  BASE_DIR / 'user_profile/templates/user_profile',
                  BASE_DIR / 'rewards/templates/rewards',
-                 BASE_DIR / 'capture_image/templates/capture_image']
+                 BASE_DIR / 'capture_image/templates/capture_image',
+                 BASE_DIR / 'home/templates/home']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
