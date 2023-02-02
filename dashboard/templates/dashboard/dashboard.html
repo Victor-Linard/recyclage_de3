@@ -6,33 +6,6 @@
 {% block header_title %}
     Dashboard
 {% endblock %}
-{% block header_level %}
-    <p class="small text-muted mb-1">
-        <time datetime="2018-06-21">Le Giga Recycleur</time>
-    </p>
-    <div class="row align-items-center g-0">
-        <div class="col-auto">
-
-            <!-- Value -->
-            <div class="small me-2">29%</div>
-
-        </div>
-        <div class="col">
-
-            <!-- Progress -->
-            <div class="progress progress-sm">
-                <div class="progress-bar" role="progressbar" style="width: 29%" aria-valuenow="29"
-                     aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-
-        </div>
-    </div>
-{% endblock %}
-{% block header_button %}
-    <button class="btn btn-outline-success lift" data-bs-toggle="modal" data-bs-target="#modalUploadPictureToAnalyze">
-        <span class="fe fe-video text-danger"></span> Scanner
-    </button>
-{% endblock %}
 {% block content %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
     <div class="modal" id="modalUploadPictureToAnalyze" tabindex="-1">
@@ -52,7 +25,8 @@
                         {{ form.file }}
 
                         <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary"><span class="fe fe-upload-cloud"></span></button>
+                            <button type="submit" class="btn btn-primary"><span class="fe fe-upload-cloud"></span>
+                            </button>
                         </div>
 
                         <hr class="navbar-divider my-4">
@@ -61,7 +35,8 @@
                             Use camera
                         </p>
                         <div class="text-center mt-2">
-                            <a class="btn btn-primary" href="{% url 'capture_image' %}"><span class="fe fe-video"></span></a>
+                            <a class="btn btn-primary" href="{% url 'capture_image' %}"><span
+                                    class="fe fe-video"></span></a>
                         </div>
                     </div>
                 </form>
@@ -69,251 +44,258 @@
         </div>
     </div>
     <div class="row">
-          <div class="col-12 col-lg-6 col-xl">
+        <div class="col-12 col-lg-6 col-xl">
 
             <!-- Value  -->
             <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center gx-0">
-                  <div class="col">
+                <div class="card-body">
+                    <div class="row align-items-center gx-0">
+                        <div class="col">
 
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Tonnage Total France Déchet
-                    </h6>
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                                Tonnage Total France Déchet
+                            </h6>
 
-                    <!-- Heading -->
-                    <span class="h2 mb-0">
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
                       {{ tonnage_total_france }} kT
                     </span>
 
-                    <!-- Badge -->
-                      {% if diff_tonnage_total_france < 0 %}
-                           <span class="badge bg-success-soft mt-n1">
-                          {{ diff_tonnage_total_france }} %
-                      {% else %}
-                           <span class="badge bg-danger-soft mt-n1">
-                          + {{ diff_tonnage_total_france }} %
-                      {% endif %}
+                            <!-- Badge -->
+                            {% if diff_tonnage_total_france < 0 %}
+                                <span class="badge bg-success-soft mt-n1">
+                                {{ diff_tonnage_total_france }} %
+                            {% else %}
+                                <span class="badge bg-danger-soft mt-n1">
+                                + {{ diff_tonnage_total_france }} %
+                            {% endif %}
 
-                    </span>
-                  </div>
-                  <div class="col-auto">
+                            </span>
+                        </div>
+                        <div class="col-auto">
 
-                    <!-- Icon -->
-                    <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
+                            <!-- Icon -->
+                            <span class="h2 fe fe-dollar-sign text-muted mb-0"></span>
 
-                  </div>
-                </div> <!-- / .row -->
-              </div>
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
             </div>
 
-          </div>
-          <div class="col-12 col-lg-6 col-xl">
+        </div>
+        <div class="col-12 col-lg-6 col-xl">
 
             <!-- Hours -->
             <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center gx-0">
-                  <div class="col">
+                <div class="card-body">
+                    <div class="row align-items-center gx-0">
+                        <div class="col">
 
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Tonnage Verre
-                    </h6>
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                                Tonnage Verre
+                            </h6>
 
-                    <!-- Heading -->
-                    <span class="h2 mb-0">
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
                       {{ tonnage_total_annee_verre }} kT
                     </span>
 
-                  </div>
-                  <div class="col-auto">
+                        </div>
+                        <div class="col-auto">
 
-                    <!-- Chart -->
-                    <div class="chart chart-sparkline">
-                        <canvas class="chart-canvas" id="chart_verre" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
-                    </div>
+                            <!-- Chart -->
+                            <div class="chart chart-sparkline">
+                                <canvas class="chart-canvas" id="chart_verre"
+                                        style="display: block; box-sizing: border-box; height: 35px; width: 75px;"
+                                        width="75" height="35"></canvas>
+                            </div>
 
-                  </div>
-                </div> <!-- / .row -->
-              </div>
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
             </div>
 
-          </div>
-          <div class="col-12 col-lg-6 col-xl">
+        </div>
+        <div class="col-12 col-lg-6 col-xl">
 
             <!-- Exit -->
             <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center gx-0">
-                  <div class="col">
+                <div class="card-body">
+                    <div class="row align-items-center gx-0">
+                        <div class="col">
 
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Tonnage Plastique
-                    </h6>
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                                Tonnage Plastique
+                            </h6>
 
-                    <!-- Heading -->
-                    <span class="h2 mb-0">
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
                       {{ tonnage_total_annee_plastique }} kT
                     </span>
 
-                  </div>
-                  <div class="col-auto">
+                        </div>
+                        <div class="col-auto">
 
-                    <!-- Chart -->
-                    <div class="chart chart-sparkline">
-                        <canvas class="chart-canvas" id="chart_plastique" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
-                    </div>
+                            <!-- Chart -->
+                            <div class="chart chart-sparkline">
+                                <canvas class="chart-canvas" id="chart_plastique"
+                                        style="display: block; box-sizing: border-box; height: 35px; width: 75px;"
+                                        width="75" height="35"></canvas>
+                            </div>
 
-                  </div>
-                </div> <!-- / .row -->
-              </div>
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
             </div>
 
-          </div>
-          <div class="col-12 col-lg-6 col-xl">
+        </div>
+        <div class="col-12 col-lg-6 col-xl">
 
             <!-- Time -->
             <div class="card">
-              <div class="card-body">
-                <div class="row align-items-center gx-0">
-                  <div class="col">
+                <div class="card-body">
+                    <div class="row align-items-center gx-0">
+                        <div class="col">
 
-                    <!-- Title -->
-                    <h6 class="text-uppercase text-muted mb-2">
-                      Tonnage Menager
-                    </h6>
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                                Tonnage Menager
+                            </h6>
 
-                    <!-- Heading -->
-                    <span class="h2 mb-0">
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
                       {{ tonnage_total_annee_menager }} kT
                     </span>
 
-                  </div>
-                  <div class="col-auto">
+                        </div>
+                        <div class="col-auto">
 
-                    <!-- Chart -->
-                    <div class="chart chart-sparkline">
-                        <canvas class="chart-canvas" id="chart_menager" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
-                    </div>
+                            <!-- Chart -->
+                            <div class="chart chart-sparkline">
+                                <canvas class="chart-canvas" id="chart_menager"
+                                        style="display: block; box-sizing: border-box; height: 35px; width: 75px;"
+                                        width="75" height="35"></canvas>
+                            </div>
 
-                  </div>
-                </div> <!-- / .row -->
-              </div>
+                        </div>
+                    </div> <!-- / .row -->
+                </div>
             </div>
 
-          </div>
         </div>
-     <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <div class="chart">
-                        <canvas id="chart_global" class="chart-canvas" style="display: block; box-sizing: border-box; height: 100%; width: 100%;"></canvas>
-                    </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="chart">
+                    <canvas id="chart_global" class="chart-canvas"
+                            style="display: block; box-sizing: border-box; height: 100%; width: 100%;"></canvas>
                 </div>
             </div>
         </div>
-     </div>
+    </div>
+    </div>
 
     <script>
-function createChart(elementId, tonnageData) {
-  const chart = document.getElementById(elementId);
-  new Chart(chart, {
-    type: 'line',
-    options: {
-      scales: {
-        y: {
-          display: false,
-          ticks: {
-            beginAtZero: true
-          }
-        },
-        x: {
-          display: false
+        function createChart(elementId, tonnageData) {
+            const chart = document.getElementById(elementId);
+            new Chart(chart, {
+                type: 'line',
+                options: {
+                    scales: {
+                        y: {
+                            display: false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        },
+                        x: {
+                            display: false
+                        }
+                    },
+                    elements: {
+                        line: {
+                            borderWidth: 2,
+                            borderColor: '#D2DDEC'
+                        },
+                        point: {
+                            radius: 0
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                            labels: {
+                                display: false
+                            }
+                        }
+                    },
+                    tooltips: {
+                        enabled: false
+                    }
+                },
+                data: {
+                    labels: new Array(6).fill('Label'),
+                    datasets: [{
+                        label: '',
+                        showLabels: false,
+                        data: tonnageData,
+                        borderWidth: 2,
+                        borderColor: '#D2DDEC',
+                        pointRadius: 0
+                    }]
+                }
+            });
         }
-      },
-      elements: {
-        line: {
-          borderWidth: 2,
-          borderColor: '#D2DDEC'
-        },
-        point: {
-          radius: 0
-        }
-      },
-        plugins: {
-          legend: {
-              display: false,
-              labels:{
-                  display: false
-              }
-          }
-        },
-      tooltips: {
-        enabled: false
-      }
-    },
-    data: {
-      labels: new Array(6).fill('Label'),
-      datasets: [{
-        label: '',
-        showLabels: false,
-        data: tonnageData,
-        borderWidth: 2,
-        borderColor: '#D2DDEC',
-        pointRadius: 0
-      }]
-    }
-  });
-}
 
-createChart('chart_plastique', {{ tonnage_total_plastique }});
-createChart('chart_verre', {{ tonnage_total_verre }});
-createChart('chart_menager', {{ tonnage_total_menager }});
+        createChart('chart_plastique', {{ tonnage_total_plastique }});
+        createChart('chart_verre', {{ tonnage_total_verre }});
+        createChart('chart_menager', {{ tonnage_total_menager }});
 
-const chart = document.getElementById("chart_global");
- new Chart('chart_global', {
-    type: 'line',
-    options: {
-        scales: {
-            y: {
-              ticks: {
-                    callback: function(value) {
-                        return + value/1000 + ' kT';
+        const chart = document.getElementById("chart_global");
+        new Chart('chart_global', {
+            type: 'line',
+            options: {
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: function (value) {
+                                return +value / 1000 + ' kT';
+                            }
+                        }
+                    },
+                    x: {
+                        display: false
+                    },
+                },
+                elements: {
+                    line: {
+                        tension: 0.4
                     }
                 }
             },
-            x: {
-              display: false
-            },
-        },
-       elements:{
-          line:{
-              tension:0.4
-          }
-      }
-    },
-    data: {
-      labels: ['2009', '2011', '2013', '2015', '2017', '2019'],
-      datasets: [{
-        label: 'Plastique',
-        data: {{ tonnage_total_plastique }}
-      }, {
-        label: 'Verre',
-        data: {{ tonnage_total_verre }},
-        hidden: true
-      }, {
-        label: 'Menager',
-        data: {{ tonnage_total_menager }},
-        hidden: true
-      }]
-    }
-  });
+            data: {
+                labels: ['2009', '2011', '2013', '2015', '2017', '2019'],
+                datasets: [{
+                    label: 'Plastique',
+                    data: {{ tonnage_total_plastique }}
+                }, {
+                    label: 'Verre',
+                    data: {{ tonnage_total_verre }},
+                    hidden: true
+                }, {
+                    label: 'Menager',
+                    data: {{ tonnage_total_menager }},
+                    hidden: true
+                }]
+            }
+        });
 
 
-</script>
+    </script>
 
 {% endblock %}
 

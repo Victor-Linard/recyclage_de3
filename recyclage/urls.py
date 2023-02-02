@@ -34,5 +34,6 @@ urlpatterns = [
     path('user_profile/security/', user_profile.views.security, name="security"),
     path('rewards/', rewards.views.rewards, name="rewards"),
     path('rewards/claimed', rewards.views.claimed, name="claimed"),
-    path('capture_image/', capture_image.views.capture_image, name='capture_image')
+    path('capture_image/', capture_image.views.capture_image, name='capture_image'),
+    path('change_reward_status/<str:key>', rewards.views.change_reward_status, name='change_reward_status')
 ]

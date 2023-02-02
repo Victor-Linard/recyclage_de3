@@ -6,28 +6,6 @@
 {% block header_title %}
     Rewards
 {% endblock %}
-{% block header_button %}
-    <p class="small text-muted mb-1">
-        <time datetime="2018-06-21">{{ level_label.level.label }}</time>
-    </p>
-    <div class="row align-items-center g-0">
-        <div class="col-auto">
-
-            <!-- Value -->
-            <div class="small me-2">{% widthratio user.exp level_label.level.exp_level_up 100 %}%</div>
-
-        </div>
-        <div class="col">
-
-            <!-- Progress -->
-            <div class="progress progress-sm">
-                <div class="progress-bar" role="progressbar" style="width: {% widthratio user.exp level_label.level.exp_level_up 100 %}%" aria-valuenow="29"
-                     aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-
-        </div>
-    </div>
-{% endblock %}
 {% block content %}
 
     <div class="row justify-content-center">
@@ -65,63 +43,75 @@
 
             <!-- Cards -->
             {% for key in keys %}
-                <div class="card">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-auto">
+                {% if key.status == 'in_progress' %}
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
 
-                            <!-- Avatar -->
-                            <a class="avatar avatar-lg avatar-4by3">
-                                <img src="{% static 'pictures/rewards/'|add:key.reward.label_image %}" alt="..."
-                                     class="avatar-img rounded">
-                            </a>
+                                <!-- Avatar -->
+                                <a class="avatar avatar-lg avatar-4by3">
+                                    <img src="{% static 'pictures/rewards/'|add:key.reward.label_image %}" alt="..."
+                                         class="avatar-img rounded">
+                                </a>
 
-                        </div>
-                        <div class="col ms-n2">
-
-                            <!-- Title -->
-                            <h4 class="mb-1">
-                                <a href="https://www.amazon.fr">{{ key.reward.label }}</a>
-                            </h4>
-
-                            <!-- Text -->
-                            <p class="small text-muted mb-1">
-                                <time datetime="2018-06-21">Remaining : {{ user.points }} / {{ key.reward.cost_point }}</time>
-                            </p>
-
-                            <!-- Progress -->
-                            <div class="row align-items-center g-0">
-                                <div class="col-auto">
-
-                                    <!-- Value -->
-                                    <div class="small me-2">{% widthratio user.points key.reward.cost_point 100 %}%</div>
-
-                                </div>
-                                <div class="col">
-
-                                    <!-- Progress -->
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar" role="progressbar" style="width: {% widthratio user.points key.reward.cost_point 100 %}%"
-                                             aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-
-                                </div>
-                            </div> <!-- / .row -->
-
-                        </div>
-                        <div class="col-auto">
-
-                            <!-- Button -->
-                            <div>
-                                <button class="btn btn-warning">
-                                    Claim
-                                </button>
                             </div>
+                            <div class="col ms-n2">
 
-                        </div>
-                    </div> <!-- / .row -->
-                </div> <!-- / .card-body -->
-            </div>
+                                <!-- Title -->
+                                <h4 class="mb-1">
+                                    <a href="https://www.amazon.fr">{{ key.reward.label }}</a>
+                                </h4>
+
+                                <!-- Text -->
+                                {% if user.points > key.reward.cost_point %}
+                                    <p class="small text-muted mb-1">
+                                        <time datetime="2018-06-21">Remaining : {{ key.reward.cost_point }}
+                                            / {{ key.reward.cost_point }}</time>
+                                    </p>
+                                {% else %}
+                                    <p class="small text-muted mb-1">
+                                        <time datetime="2018-06-21">Remaining : {{ user.points }}
+                                            / {{ key.reward.cost_point }}</time>
+                                    </p>
+                                {% endif %}
+
+                                <!-- Progress -->
+                                <div class="row align-items-center g-0">
+                                    <div class="col-auto">
+                                        {% if user.points > key.reward.cost_point %}
+                                            <div class="small me-2">100%</div>
+                                        {% else %}
+                                            <div class="small me-2">{% widthratio user.points key.reward.cost_point 100 %}%</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col">
+
+                                        <!-- Progress -->
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar" role="progressbar"
+                                                 style="width: {% widthratio user.points key.reward.cost_point 100 %}%"
+                                                 aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                    </div>
+                                </div> <!-- / .row -->
+
+                            </div>
+                            <div class="col-auto">
+
+                                <!-- Button -->
+                                <div>
+                                    <a class="btn btn-warning" href="{% url 'change_reward_status' key=key.key %}">
+                                        Claim
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div> <!-- / .row -->
+                    </div> <!-- / .card-body -->
+                </div>
+                {% endif %}
             {% endfor %}
 
         </div>
