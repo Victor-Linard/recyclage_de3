@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'authenticate',
     'dashboard',
     'user_profile',
-    'rewards'
+    'rewards',
+    'capture_image'
 ]
 
 MIDDLEWARE = [
@@ -64,7 +65,8 @@ TEMPLATES = [
                  BASE_DIR / 'authenticate/templates/authenticate',
                  BASE_DIR / 'dashboard/templates/dashboard',
                  BASE_DIR / 'user_profile/templates/user_profile',
-                 BASE_DIR / 'rewards/templates/rewards']
+                 BASE_DIR / 'rewards/templates/rewards',
+                 BASE_DIR / 'capture_image/templates/capture_image']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,4 +140,4 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 AUTH_USER_MODEL = 'authenticate.User'
 
-TYPE_OF_WASTE = {'metal': 5, 'plastic': 2, 'cardboard': 3, 'paper': 3, 'trash': 1, 'glass': 4}
+TYPE_OF_WASTE = {'metal': 500, 'plastic': 200, 'cardboard': 300, 'paper': 300, 'trash': 100, 'glass': 400}

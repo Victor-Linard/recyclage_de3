@@ -34,21 +34,38 @@
     </button>
 {% endblock %}
 {% block content %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
     <div class="modal" id="modalUploadPictureToAnalyze" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form method="post"
                       enctype="multipart/form-data">{% csrf_token %}
                     <div class="modal-header">
-                        <h5 class="modal-title">Import picture</h5>
+                        <h5 class="modal-title">Scan waste</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <p class="text-muted text-center mb-2">
+                            Import files
+                        </p>
+
                         {{ form.file }}
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary"><span class="fe fe-upload-cloud"></span></button>
+                        </div>
+
+                        <hr class="navbar-divider my-4">
+
+                        <p class="text-muted text-center mb-2">
+                            Use camera
+                        </p>
+                        <div class="text-center mt-2">
+                            <a class="btn btn-primary" href="{% url 'capture_image' %}"><span class="fe fe-video"></span></a>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Analyze</button>
                     </div>
                 </form>
             </div>
@@ -70,12 +87,18 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      T 24500
+                      {{ tonnage_total_france }}
                     </span>
 
                     <!-- Badge -->
-                    <span class="badge bg-success-soft mt-n1">
-                      -2.5%
+                      {% if diff_tonnage_total_france < 0 %}
+                           <span class="badge bg-success-soft mt-n1">
+                          - {{ diff_tonnage_total_france }} %
+                      {% else %}
+                           <span class="badge bg-danger-soft mt-n1">
+                          + {{ diff_tonnage_total_france }} %
+                      {% endif %}
+
                     </span>
                   </div>
                   <div class="col-auto">
@@ -104,14 +127,16 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      763.5
+                      {{ tonnage_total_annee_verre }} T
                     </span>
 
                   </div>
                   <div class="col-auto">
 
-                    <!-- Icon -->
-                    <span class="h2 fe fe-briefcase text-muted mb-0"></span>
+                    <!-- Chart -->
+                    <div class="chart chart-sparkline">
+                        <canvas class="chart-canvas" id="chart_verre" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
+                    </div>
 
                   </div>
                 </div> <!-- / .row -->
@@ -134,7 +159,7 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      35.5%
+                      {{ tonnage_total_annee_plastique }} T
                     </span>
 
                   </div>
@@ -142,7 +167,7 @@
 
                     <!-- Chart -->
                     <div class="chart chart-sparkline">
-                      <canvas class="chart-canvas" id="sparklineChart" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="150" height="70"></canvas>
+                        <canvas class="chart-canvas" id="chart_plastique" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
                     </div>
 
                   </div>
@@ -166,14 +191,16 @@
 
                     <!-- Heading -->
                     <span class="h2 mb-0">
-                      1456,7 T
+                      {{ tonnage_total_annee_menager }} T
                     </span>
 
                   </div>
                   <div class="col-auto">
 
-                    <!-- Icon -->
-                    <span class="h2 fe fe-clock text-muted mb-0"></span>
+                    <!-- Chart -->
+                    <div class="chart chart-sparkline">
+                        <canvas class="chart-canvas" id="chart_menager" style="display: block; box-sizing: border-box; height: 35px; width: 75px;" width="75" height="35"></canvas>
+                    </div>
 
                   </div>
                 </div> <!-- / .row -->
@@ -182,4 +209,108 @@
 
           </div>
         </div>
+    <div class="row">
+        <ul class="nav nav-tabs nav-tabs-sm card-header-tabs">
+      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="0">
+        <a class="nav-link active" href="#" data-bs-toggle="tab">
+          All
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="1">
+        <a class="nav-link" href="#" data-bs-toggle="tab">
+          Direct
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="chart" data-target="#salesChart" data-trigger="click" data-action="toggle" data-dataset="2">
+        <a class="nav-link" href="#" data-bs-toggle="tab">
+          Organic
+        </a>
+      </li>
+    </ul>
+
+    <div class="chart">
+      <canvas id="chart_global" class="chart-canvas"></canvas>
+    </div>
+    </div>
+{% endblock %}
+
+
+{% block dashboard_chart %}
+<script>
+    function createChart(elementId, tonnageData) {
+  const chart = document.getElementById(elementId);
+  new Chart(chart, {
+    type: 'line',
+    options: {
+      scales: {
+        y: {
+          display: false
+        },
+        x: {
+          display: false
+        }
+      },
+      elements: {
+        line: {
+          borderWidth: 2,
+          borderColor: '#D2DDEC'
+        },
+        point: {
+          hoverRadius: 0
+        }
+      },
+      plugins: {
+        tooltip: {
+          external: function() {
+            return false;
+          }
+        }
+      }
+    },
+    data: {
+      labels: new Array(6).fill('Label'),
+      datasets: [{
+        data: tonnageData
+      }]
+    }
+  });
+}
+
+createChart('chart_plastique', {{ tonnage_total_plastique }});
+createChart('chart_verre', {{ tonnage_total_verre }});
+createChart('chart_menager', {{ tonnage_total_menager }});
+
+const chart = document.getElementById(chart_global);
+ new Chart('chart_global', {
+    type: 'line',
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            callback: function(value) {
+              return '$' + value + 'k';
+            }
+          }
+        }
+      }
+    },
+    data: {
+      labels: ['Oct 1', 'Oct 3', 'Oct 6', 'Oct 9', 'Oct 12', 'Oct 5', 'Oct 18', 'Oct 21', 'Oct 24', 'Oct 27', 'Oct 30'],
+      datasets: [{
+        label: 'All',
+        data: [0, 10, 5, 15, 10, 20, 15, 25, 20, 30, 25]
+      }, {
+        label: 'Direct',
+        data: [7, 40, 12, 27, 34, 17, 19, 30, 28, 32, 24],
+        hidden: true
+      }, {
+        label: 'Organic',
+        data: [2, 12, 35, 25, 36, 25, 34, 16, 4, 14, 15],
+        hidden: true
+      }]
+    }
+  });
+
+
+</script>
 {% endblock %}

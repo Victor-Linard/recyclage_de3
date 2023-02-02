@@ -25,6 +25,8 @@ class SigninPageView(View):
                 password=form.cleaned_data['password'],
             )
             if user is not None:
+                user.last_last_login = user.last_login
+                user.save()
                 login(request, user)
                 return redirect(settings.LOGIN_REDIRECT_URL)
         message = 'Identifiants invalides.'
