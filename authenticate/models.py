@@ -15,7 +15,7 @@ class Level(models.Model):
 class User(AbstractUser):
     level = models.ForeignKey(Level, on_delete=models.CASCADE, default=1)
     points = models.IntegerField(default=0)
-    exp = models.IntegerField(default=1)
+    exp = models.IntegerField(default=0)
     last_last_login = models.DateTimeField(default=timezone.now)
 
 

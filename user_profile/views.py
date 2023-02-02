@@ -13,6 +13,7 @@ def general(request):
     return render(request, 'general.html', context={"level_label": level_label})
 
 
+@login_required(login_url='/signin/')
 def security(request):
     level_label = User.objects.select_related('level').get(pk=request.user.id)
     return render(request, 'security.html', context={"level_label": level_label})

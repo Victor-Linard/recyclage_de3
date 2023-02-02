@@ -1,0 +1,21 @@
+{% load static %}
+<html>
+<head>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{% static 'theme/css/libs.bundle.css' %}"/>
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'theme/css/theme.bundle.css' %}"/>
+</head>
+<body>
+    <script>
+        Swal.fire({
+            icon: "{{ icon }}",
+            title: "{{ title }}",
+            text: "{{ text }}"
+        }).then((result) => {
+            window.location.href = "/rewards/claimed"
+        })
+    </script>
+</body>
+</html>
