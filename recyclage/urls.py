@@ -28,7 +28,6 @@ urlpatterns = [
     path('dashboard/', dashboard.views.dashboard, name="dashboard"),
     path('', dashboard.views.dashboard, name="dashboard"),
     path('user_profile/', user_profile.views.general, name="general"),
-    path('user_profile/avatar/', user_profile.views.avatar, name="avatar"),
     path('user_profile/security/', user_profile.views.security, name="security"),
     path('rewards/', rewards.views.rewards, name="rewards"),
     path('rewards/claimed', rewards.views.claimed, name="claimed")

@@ -1,158 +1,313 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block header_pretitle %}
+    overview
+{% endblock %}
+{% block header_title %}
+    Profile
+{% endblock %}
 {% block header_button %}
+    <p class="small text-muted mb-1">
+        <time datetime="2018-06-21">Le Giga Recycleur</time>
+    </p>
+    <div class="row align-items-center g-0">
+        <div class="col-auto">
+
+            <!-- Value -->
+            <div class="small me-2">29%</div>
+
+        </div>
+        <div class="col">
+
+            <!-- Progress -->
+            <div class="progress progress-sm">
+                <div class="progress-bar" role="progressbar" style="width: 29%" aria-valuenow="29"
+                     aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+    </div>
 {% endblock %}
 {% block content %}
 
-   <div class="row justify-content-center">
-          <div class="col-12 col-lg-10 col-xl-8">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
 
             <!-- Header -->
             <div class="header md-5">
-              <div class="header-body">
-                <div class="row align-items-center">
-                  <div class="col">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col">
 
-                    <!-- Nav -->
-                    <ul class="nav nav-tabs nav-overflow header-tabs">
-                      <li class="nav-item">
-                        <a href="{% url 'general' %}" class="nav-link active">
-                          General
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{% url 'avatar' %}" class="nav-link">
-                          Choose an avatar
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{% url 'security' %}" class="nav-link">
-                          Security
-                        </a>
-                      </li>
-                    </ul>
+                            <!-- Nav -->
+                            <ul class="nav nav-tabs nav-overflow header-tabs">
+                                <li class="nav-item">
+                                    <a href="{% url 'general' %}" class="nav-link active">
+                                        General
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'security' %}" class="nav-link">
+                                        Security
+                                    </a>
+                                </li>
+                            </ul>
 
-                  </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
 
             <!-- Form -->
             <form>
 
-              <div class="row justify-content-between align-items-center">
-                <div class="col">
-                  <div class="row align-items-center">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+
+                                <!-- Avatar -->
+                                <div class="avatar">
+                                    <img class="avatar-img rounded-circle" src="../static/pictures/profile/animal.jpg"
+                                         alt="...">
+                                </div>
+
+                            </div>
+                            <div class="col ms-n2">
+
+                                <!-- Heading -->
+                                <h4 class="mb-1">
+                                    Le Giga Recycleur
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMembers">
+                                        <span class="fe fe-info"></span>
+                                    </button>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <hr class="my-5">
+
+                <div class="row">
+                    <div class="col-12 col-md-6">
+
+                        <!-- First name -->
+                        <div class="form-group">
+
+                            <!-- Label -->
+                            <label class="form-label">
+                                First name
+                            </label>
+
+                            <!-- Input -->
+                            <input type="text" class="form-control" value={{ user.first_name }}>
+
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-md-6">
+
+                        <!-- Last name -->
+                        <div class="form-group">
+
+                            <!-- Label -->
+                            <label class="form-label">
+                                Last name
+                            </label>
+
+                            <!-- Input -->
+                            <input type="text" class="form-control" value={{ user.last_name }}>
+
+                        </div>
+
+                    </div>
+                    <div class="col-12">
+
+                        <!-- Email address -->
+                        <div class="form-group">
+
+                            <!-- Label -->
+                            <label class="mb-1">
+                                Email address
+                            </label>
+
+                            <!-- Input -->
+                            <input type="email" class="form-control" value={{ user.email }}>
+
+                        </div>
+
+                    </div>
+                </div> <!-- / .row -->
+
+                <!-- Button -->
+                <button class="btn btn-primary">
+                    Save changes
+                </button>
+
+                <!-- Divider -->
+                <hr class="mt-4 mb-5">
+
+                <div class="row justify-content-between">
+                    <div class="col-12 col-md-6">
+
+                        <!-- Heading -->
+                        <h4>
+                            Delete your account
+                        </h4>
+
+                        <!-- Text -->
+                        <p class="small text-muted mb-md-0">
+                            Please note, deleting your account is a permanent action and will not be recoverable once
+                            completed.
+                        </p>
+
+                    </div>
                     <div class="col-auto">
 
-                      <!-- Avatar -->
-                      <div class="avatar">
-                        <img class="avatar-img rounded-circle" src="../static/pictures/animal.jpg" alt="...">
-                      </div>
+                        <!-- Button -->
+                        <button class="btn btn-danger">
+                            Delete
+                        </button>
 
                     </div>
-                    <div class="col ms-n2">
-
-                      <!-- Heading -->
-                      <h4 class="mb-1">
-                        Your avatar
-                      </h4>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Divider -->
-              <hr class="my-5">
-
-              <div class="row">
-                <div class="col-12 col-md-6">
-
-                  <!-- First name -->
-                  <div class="form-group">
-
-                    <!-- Label -->
-                    <label class="form-label">
-                      First name
-                    </label>
-
-                    <!-- Input -->
-                    <input type="text" class="form-control" value={{ user.first_name }}>
-
-                  </div>
-
-                </div>
-                <div class="col-12 col-md-6">
-
-                  <!-- Last name -->
-                  <div class="form-group">
-
-                    <!-- Label -->
-                    <label class="form-label">
-                      Last name
-                    </label>
-
-                    <!-- Input -->
-                    <input type="text" class="form-control" value={{ user.last_name }}>
-
-                  </div>
-
-                </div>
-                <div class="col-12">
-
-                  <!-- Email address -->
-                  <div class="form-group">
-
-                    <!-- Label -->
-                    <label class="mb-1">
-                      Email address
-                    </label>
-
-                    <!-- Input -->
-                    <input type="email" class="form-control" value={{ user.email }}>
-
-                  </div>
-
-                </div>
-              </div> <!-- / .row -->
-
-              <!-- Button -->
-              <button class="btn btn-primary">
-                Save changes
-              </button>
-
-              <!-- Divider -->
-              <hr class="mt-4 mb-5">
-
-              <div class="row justify-content-between">
-                <div class="col-12 col-md-6">
-
-                  <!-- Heading -->
-                  <h4>
-                    Delete your account
-                  </h4>
-
-                  <!-- Text -->
-                  <p class="small text-muted mb-md-0">
-                    Please note, deleting your account is a permanent action and will not be recoverable once completed.
-                  </p>
-
-                </div>
-                <div class="col-auto">
-
-                  <!-- Button -->
-                  <button class="btn btn-danger">
-                    Delete
-                  </button>
-
-                </div>
-              </div> <!-- / .row -->
+                </div> <!-- / .row -->
 
             </form>
 
             <br><br>
 
-          </div>
-       </div> <!-- / .row -->
+        </div>
+    </div> <!-- / .row -->
+    <div class="modal fade" id="modalMembers" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="card-header">
+
+                    <!-- Title -->
+                    <h4 class="card-header-title" id="exampleModalCenterTitle">
+                        Levels
+                    </h4>
+
+                    <!-- Close -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+
+                </div>
+                <div class="modal-card card">
+                    <div class="card-body">
+
+                        <!-- List group -->
+                        <ul class="list-group list-group-flush list my-n3">
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+
+                                        <!-- Avatar -->
+                                        <a class="avatar" href="../static/pictures/levels/pioupiou.png">
+                                            <img src="../static/pictures/levels/pioupiou.png"
+                                                 alt="..."
+                                                 class="avatar-img rounded-circle">
+                                        </a>
+
+                                    </div>
+                                    <div class="col ms-n2">
+
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            <span>Le Piou-Piou Recycleur</span>
+                                        </h4>
+
+                                        <p class="small mb-0">
+                                            <span>Unlock the next level to be eligible for bonuses !</span>
+                                        </p>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+
+                                        <!-- Avatar -->
+                                        <a href="../static/pictures/levels/marmotte.png" class="avatar">
+                                            <img src="../static/pictures/levels/marmotte.png"
+                                                 alt="..."
+                                                 class="avatar-img rounded-circle">
+                                        </a>
+
+                                    </div>
+                                    <div class="col ms-n2">
+
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            <span>La Marmotte Recycleuse</span>
+                                        </h4>
+
+                                        <p class="small mb-0">
+                                            <span>+5% !</span>
+                                        </p>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+
+                                        <!-- Avatar -->
+                                        <a class="avatar" href="../static/pictures/levels/chevalier.png">
+                                            <img src="../static/pictures/levels/chevalier.png"
+                                                 alt="..."
+                                                 class="avatar-img rounded-circle">
+                                        </a>
+
+                                    </div>
+                                    <div class="col ms-n2">
+
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            <span>Le Chevalier Recycleur</span>
+                                        </h4>
+
+                                        <p class="small mb-0">
+                                            <span>+10% !</span>
+                                        </p>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+
+                                        <!-- Avatar -->
+                                        <a class="avatar" href="../static/pictures/levels/giga.png">
+                                            <img src="../static/pictures/levels/giga.png"
+                                                 alt="..."
+                                                 class="avatar-img rounded-circle">
+                                        </a>
+
+                                    </div>
+                                    <div class="col ms-n2">
+
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            <span>Le Giga Recycleur</span>
+                                        </h4>
+
+                                        <p class="small mb-0">
+                                            <span>+15% !</span>
+                                        </p>
+
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
