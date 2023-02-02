@@ -20,7 +20,7 @@ from skimage.metrics import structural_similarity as ssim
 import cv2
 import numpy as np
 from .models import Scan
-from authenticate.models import User
+from authenticate.models import User, Level
 # Create your views here.
 
 
@@ -147,9 +147,18 @@ def detect_type_of_waste(user, anonyme_id=None):
                 user.points += type_of_waste[class_name[0]]
                 user.exp += type_of_waste[class_name[0]]
                 user.save()
+                verify_level(user)
     scores = {key: value for key, value in scores.items() if value != 0}
     print(scores)
     return scores
+
+
+def verify_level(user):
+    levels = Level.objects.all()
+    for level in levels:
+        if user.exp >= level.exp_level_up:
+            user.level_id += 1
+            user.save()
 
 
 class Net(nn.Module):

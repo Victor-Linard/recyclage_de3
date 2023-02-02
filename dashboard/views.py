@@ -32,7 +32,8 @@ def dashboard(request):
             if len(request.FILES.getlist('file')) > 1:
                 resize_picture(anonyme_id)
                 check_for_duplicate(anonyme_id)
-            detect_type_of_waste(request.user, anonyme_id)
+            scores = detect_type_of_waste(request.user, anonyme_id)
+            return render(request, 'dashboard.html', context={'scores': scores, 'level_label': level_label, 'form': forms.UploadPictureToAnalyze, 'tonnage_total_france': round(tonnage_total_france / 1000, 3), 'diff_tonnage_total_france': round(diff_tonnage_france_total, 3), 'tonnage_total_annee_verre': round(tonnage_total_annee_verre / 1000, 3), 'tonnage_total_annee_menager': round(tonnage_total_annee_menager / 1000, 3), 'tonnage_total_annee_plastique': round(tonnage_total_annee_plastique / 1000, 3), 'tonnage_total_verre': tonnage_total_verre, 'tonnage_total_plastique': tonnage_total_plastique, 'tonnage_total_menager': tonnage_total_menager})
     return render(request, 'dashboard.html', context={'level_label': level_label, 'form': forms.UploadPictureToAnalyze, 'tonnage_total_france': round(tonnage_total_france/1000, 3), 'diff_tonnage_total_france' : round(diff_tonnage_france_total, 3), 'tonnage_total_annee_verre' : round(tonnage_total_annee_verre/1000, 3), 'tonnage_total_annee_menager' : round(tonnage_total_annee_menager/1000, 3), 'tonnage_total_annee_plastique' : round(tonnage_total_annee_plastique/1000, 3), 'tonnage_total_verre' : tonnage_total_verre, 'tonnage_total_plastique': tonnage_total_plastique, 'tonnage_total_menager': tonnage_total_menager})
 
 
