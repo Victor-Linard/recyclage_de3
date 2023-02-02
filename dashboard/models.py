@@ -12,5 +12,3 @@ class Dechet(models.Model):
     C_TYP_REG_DECHET = models.CharField(max_length=255)
     L_TYP_REG_DECHET = models.CharField(max_length=255)
     TONNAGE_T = models.FloatField()
-    VA_POPANNEE = models.IntegerField()
-    RATION_KG_HAB = models.FloatField()
