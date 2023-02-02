@@ -1,28 +1,26 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-import os
 from authenticate.models import User
-from django.views.decorators.http import require_GET, require_http_methods
+from django.views.decorators.http import require_http_methods
 from capture_image.models import Scan
 from django.db.models import Count
 import datetime
 from django.db.models import Sum
-
+from capture_image.forms import UploadPictureToAnalyze
 
 # Create your views here.
 
 
 @login_required(login_url='/signin/')
-
 def general(request):
     level_label = User.objects.select_related('level').get(pk=request.user.id)
-    return render(request, 'general.html', context={"level_label": level_label})
+    return render(request, 'general.html', context={"level_label": level_label, 'form': UploadPictureToAnalyze})
 
 
 @login_required(login_url='/signin/')
 def security(request):
     level_label = User.objects.select_related('level').get(pk=request.user.id)
-    return render(request, 'security.html', context={"level_label": level_label})
+    return render(request, 'security.html', context={"level_label": level_label, 'form': UploadPictureToAnalyze})
 
 
 @require_http_methods(["GET"])
@@ -32,7 +30,7 @@ def stats(request):
         total_scan_metal, total_scan_trash, total_scan_plastic, total_points, result \
             = recover_data_profile(request.user.id)
 
-    return render(request, 'stats.html', context={"level_label": level_label, 'total_scans': total_scans, 'total_scan_cardboard': total_scan_cardboard, 'total_scan_paper': total_scan_paper,'total_scan_glass': total_scan_glass, 'total_scan_metal': total_scan_metal, 'total_scan_trash': total_scan_trash, 'total_scan_plastic': total_scan_plastic, 'total_points': total_points, 'result': result})
+    return render(request, 'stats.html', context={"level_label": level_label, 'form': UploadPictureToAnalyze, 'total_scans': total_scans, 'total_scan_cardboard': total_scan_cardboard, 'total_scan_paper': total_scan_paper,'total_scan_glass': total_scan_glass, 'total_scan_metal': total_scan_metal, 'total_scan_trash': total_scan_trash, 'total_scan_plastic': total_scan_plastic, 'total_points': total_points, 'result': result})
 
 
 def recover_data_profile(user_id):

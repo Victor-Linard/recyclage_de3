@@ -6,8 +6,6 @@
 {% block header_title %}
     Profile
 {% endblock %}
-
-
 {% block header_button %}
     <p class="small text-muted mb-1">
         <time datetime="2018-06-21">{{ level_label.level.label }}</time>
@@ -30,10 +28,13 @@
         </div>
     </div>
 {% endblock %}
+{% block form_file %}
+    {{ form.file }}
+{% endblock %}
 {% block content %}
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
+
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8">
 

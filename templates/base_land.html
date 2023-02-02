@@ -1,0 +1,59 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'theme/favicon/favicon.ico' %}" type="image/x-icon"/>
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{% static 'landkit/css/libs.bundle.css' %}"/>
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'landkit/css/theme.bundle.css' %}"/>
+
+    <!-- Title -->
+    <title>GreenCycle</title>
+</head>
+<body class="pt-10 bg-light">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white border-bottom">
+    <div class="container-fluid">
+
+        <!-- Brand -->
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'pictures/logo.png' %}" class="navbar-brand-img" alt="...">
+        </a>
+
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+
+            <!-- Navigation -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="{% url 'home' %}">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="{% url 'pricing' %}">
+                        Pricing
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Button -->
+            <a class="navbar-btn btn btn-sm btn-primary lift ms-auto" href="{% url 'signin' %}" target="_blank">
+                Sign In
+            </a>
+        </div>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>
