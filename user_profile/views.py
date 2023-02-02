@@ -4,6 +4,8 @@ from authenticate.models import User
 from django.views.decorators.http import require_http_methods
 from capture_image.models import Scan
 from django.db.models import Count
+import datetime
+from django.db.models import Sum
 from capture_image.forms import UploadPictureToAnalyze
 
 # Create your views here.
@@ -25,10 +27,10 @@ def security(request):
 def stats(request):
     level_label = User.objects.select_related('level').get(pk=request.user.id)
     total_scans, total_scan_cardboard, total_scan_paper, total_scan_glass, \
-        total_scan_metal, total_scan_trash, total_scan_plastic, total_points \
+        total_scan_metal, total_scan_trash, total_scan_plastic, total_points, result \
             = recover_data_profile(request.user.id)
 
-    return render(request, 'stats.html', context={"level_label": level_label, 'form': UploadPictureToAnalyze, 'total_scans': total_scans, 'total_scan_cardboard': total_scan_cardboard, 'total_scan_paper': total_scan_paper,'total_scan_glass': total_scan_glass, 'total_scan_metal': total_scan_metal, 'total_scan_trash': total_scan_trash, 'total_scan_plastic': total_scan_plastic, 'total_points': total_points})
+    return render(request, 'stats.html', context={"level_label": level_label, 'form': UploadPictureToAnalyze, 'total_scans': total_scans, 'total_scan_cardboard': total_scan_cardboard, 'total_scan_paper': total_scan_paper,'total_scan_glass': total_scan_glass, 'total_scan_metal': total_scan_metal, 'total_scan_trash': total_scan_trash, 'total_scan_plastic': total_scan_plastic, 'total_points': total_points, 'result': result})
 
 
 def recover_data_profile(user_id):
@@ -61,5 +63,15 @@ def recover_data_profile(user_id):
         elif waste['type_of_waste'] == 'plastic':
             total_scan_plastic = waste['total']
 
-    return total_scans, total_scan_cardboard, total_scan_paper, total_scan_glass, total_scan_metal, total_scan_trash, total_scan_plastic, total_points
+    today = datetime.datetime.today()
+    one_month_ago = today - datetime.timedelta(days=30)
+
+    scans = Scan.objects.filter(date__range=[one_month_ago, today]).values('date').annotate(total=Count('date')).values(
+        'date__date').annotate(total=Count('date'))
+    result = {}
+    for scan in scans:
+        result[scan['date__date'].strftime("%Y-%m-%d")] = scan['total']
+
+
+    return total_scans, total_scan_cardboard, total_scan_paper, total_scan_glass, total_scan_metal, total_scan_trash, total_scan_plastic, total_points, result
 
