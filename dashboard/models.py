@@ -1,4 +1,8 @@
 from django.db import models
+
+# Create your models here.
+
+
 class Dechet(models.Model):
     ANNEE = models.IntegerField()
     C_REGION = models.IntegerField()
