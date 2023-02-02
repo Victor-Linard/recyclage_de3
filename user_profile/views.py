@@ -24,11 +24,12 @@ def security(request):
 
 @require_http_methods(["GET"])
 def stats(request):
+    level_label = User.objects.select_related('level').get(pk=request.user.id)
     total_scans, total_scan_cardboard, total_scan_paper, total_scan_glass, \
         total_scan_metal, total_scan_trash, total_scan_plastic, total_points \
             = recover_data_profile(request.user.id)
 
-    return render(request, 'stats.html', context={'total_scans': total_scans, 'total_scan_cardboard': total_scan_cardboard, 'total_scan_paper': total_scan_paper,'total_scan_glass': total_scan_glass, 'total_scan_metal': total_scan_metal, 'total_scan_trash': total_scan_trash, 'total_scan_plastic': total_scan_plastic, 'total_points': total_points})
+    return render(request, 'stats.html', context={"level_label": level_label, 'total_scans': total_scans, 'total_scan_cardboard': total_scan_cardboard, 'total_scan_paper': total_scan_paper,'total_scan_glass': total_scan_glass, 'total_scan_metal': total_scan_metal, 'total_scan_trash': total_scan_trash, 'total_scan_plastic': total_scan_plastic, 'total_points': total_points})
 
 
 def recover_data_profile(user_id):
