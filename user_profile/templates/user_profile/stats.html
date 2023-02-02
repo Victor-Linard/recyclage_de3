@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_pretitle %}
+    overview
+{% endblock %}
+{% block header_title %}
+    Profile
+{% endblock %}
+
+
+{% block header_button %}
+    <p class="small text-muted mb-1">
+        <time datetime="2018-06-21">{{ level_label.level.label }}</time>
+    </p>
+    <div class="row align-items-center g-0">
+        <div class="col-auto">
+
+            <!-- Value -->
+            <div class="small me-2">{% widthratio user.exp level_label.level.exp_level_up 100 %}%</div>
+
+        </div>
+        <div class="col">
+
+            <!-- Progress -->
+            <div class="progress progress-sm">
+                <div class="progress-bar" role="progressbar" style="width: {% widthratio user.exp level_label.level.exp_level_up 100 %}%" aria-valuenow="29"
+                     aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+
+
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+
+            <!-- Header -->
+            <div class="header md-5">
+                <div class="header-body">
+                    <div class="row align-items-center">
+                        <div class="col">
+
+                            <!-- Nav -->
+                            <ul class="nav nav-tabs nav-overflow header-tabs">
+                                <li class="nav-item">
+                                    <a href="{% url 'general' %}" class="nav-link">
+                                        General
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'security' %}" class="nav-link">
+                                        Security
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'stats' %}" class="nav-link active">
+                                        Stats
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-6 col-xl">
+                    <!-- Card -->
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                          <div class="col">
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                              Total Scan
+                            </h6>
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
+                              {{ total_scans }}
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <!-- Icon -->
+                            <span class="h2 fe fe-camera text-muted mb-0"></span>
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl">
+                    <!-- Card -->
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                          <div class="col">
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                              Total points
+                            </h6>
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
+                              {{ total_points }}
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <!-- Icon -->
+                            <span class="h2 fe fe-award text-muted mb-0"></span>
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl">
+                    <!-- Card -->
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                          <div class="col">
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                              Total Scan plastic
+                            </h6>
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
+                              {{ total_scan_plastic }}
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <!-- Icon -->
+                            <img src="{% static "pictures/icon/trash-2_yellow.svg" %}">
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl">
+                    <!-- Card -->
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                          <div class="col">
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                              Total Scan glass
+                            </h6>
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
+                              {{ total_scan_glass }}
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <!-- Icon -->
+                            <img src="{% static "pictures/icon/trash-2_green.svg" %}">
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-6 col-xl">
+                    <!-- Card -->
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                          <div class="col">
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                              Total Scan metal
+                            </h6>
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
+                              {{ total_scan_metal }}
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <!-- Icon -->
+                            <span class="h2 fe fe-truck text-muted mb-0"></span>
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl">
+                    <!-- Card -->
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                          <div class="col">
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                              Total Scan carboard
+                            </h6>
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
+                              {{ total_scan_cardboard }}
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <!-- Icon -->
+                            <img src="{% static "pictures/icon/trash-2_yellow.svg" %}">
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl">
+                    <!-- Card -->
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                          <div class="col">
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                              Total Scan paper
+                            </h6>
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
+                              {{ total_scan_paper }}
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <!-- Icon -->
+                            <img src="{% static "pictures/icon/trash-2_blue.svg" %}">
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl">
+                    <!-- Card -->
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row align-items-center gx-0">
+                          <div class="col">
+                            <!-- Title -->
+                            <h6 class="text-uppercase text-muted mb-2">
+                              Total Scan trash
+                            </h6>
+                            <!-- Heading -->
+                            <span class="h2 mb-0">
+                              {{ total_scan_trash }}
+                            </span>
+                          </div>
+                          <div class="col-auto">
+                            <!-- Icon -->
+                            <img src="{% static "pictures/icon/trash-2_dark.svg" %}">
+                          </div>
+                        </div> <!-- / .row -->
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

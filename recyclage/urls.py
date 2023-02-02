@@ -32,6 +32,7 @@ urlpatterns = [
     path('dashboard/', dashboard.views.dashboard, name="dashboard"),
     path('user_profile/', user_profile.views.general, name="general"),
     path('user_profile/security/', user_profile.views.security, name="security"),
+    path('user_profile/stats/', user_profile.views.stats, name="stats"),
     path('rewards/', rewards.views.rewards, name="rewards"),
     path('rewards/claimed', rewards.views.claimed, name="claimed"),
     path('capture_image/', capture_image.views.capture_image, name='capture_image'),
