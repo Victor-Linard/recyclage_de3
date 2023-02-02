@@ -140,4 +140,4 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 AUTH_USER_MODEL = 'authenticate.User'
 
-TYPE_OF_WASTE = {'metal': 500, 'plastic': 200, 'cardboard': 300, 'paper': 300, 'trash': 100, 'glass': 400}
+TYPE_OF_WASTE = {'metal': 30, 'plastic': 50, 'cardboard': 25, 'paper': 25, 'trash': 15, 'glass': 40}

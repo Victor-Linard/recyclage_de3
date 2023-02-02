@@ -2,7 +2,7 @@ import os
 from django.shortcuts import render
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-from .models import Image
+from .models import ImageWebCam
 from django.shortcuts import redirect
 import urllib.request
 from time import time
@@ -33,7 +33,7 @@ def capture_image(request):
         image.name = anonyme_id + '.jpg'
         if image is not None:
             os.makedirs(os.path.dirname('./UPLOADED_IMAGES'), exist_ok=True)
-            obj = Image.objects.create(anonyme_id=anonyme_id, image=image)
+            obj = ImageWebCam.objects.create(anonyme_id=anonyme_id, image=image)
             obj.save()
             detect_type_of_waste()
             obj.delete()
