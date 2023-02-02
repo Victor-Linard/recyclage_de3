@@ -1,4 +1,6 @@
 import os
+
+import requests
 from django.shortcuts import render
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
@@ -132,13 +134,14 @@ def detect_type_of_waste(user, anonyme_id=None):
             confidence = floor(confidence * 10000) / 100
             scores[class_name[0]] += type_of_waste[class_name[0]]
             print(f'{img} - {class_name[0]} : {confidence}')
-            scan = Scan()
-            scan.user = user
-            scan.points = type_of_waste[class_name[0]]
-            scan.save()
-            user.points += type_of_waste[class_name[0]]
-            user.exp += type_of_waste[class_name[0]]
-            user.save()
+            if user is not None:
+                scan = Scan()
+                scan.user = user
+                scan.points = type_of_waste[class_name[0]]
+                scan.save()
+                user.points += type_of_waste[class_name[0]]
+                user.exp += type_of_waste[class_name[0]]
+                user.save()
     scores = {key: value for key, value in scores.items() if value != 0}
     print(scores)
     return scores
