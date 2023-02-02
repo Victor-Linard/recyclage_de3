@@ -45,16 +45,21 @@
 
             <!-- Navigation -->
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">
+                        <i class="fe fe-home"></i> Home
+                    </a>
+                </li>
                 {% if 'dashboard' in request.path %}
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'dashboard' %}">
-                            <i class="fe fe-home"></i> Dashboards
+                            <i class="fe fe-layout"></i> Dashboards
                         </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'dashboard' %}">
-                            <i class="fe fe-home"></i> Dashboards
+                            <i class="fe fe-layout"></i> Dashboards
                         </a>
                     </li>
                 {% endif %}
