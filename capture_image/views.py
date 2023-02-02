@@ -1,4 +1,6 @@
 import os
+
+import requests
 from django.shortcuts import render
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
@@ -8,8 +10,7 @@ import urllib.request
 from time import time
 from recyclage import settings
 from math import floor
-import json
-from torchvision import datasets, transforms, models
+from torchvision import transforms, models
 import torch
 import torch.nn as nn
 import json
@@ -19,6 +20,7 @@ from pillow_heif import register_heif_opener
 from skimage.metrics import structural_similarity as ssim
 import cv2
 import numpy as np
+from .models import Scan
 # Create your views here.
 
 
@@ -35,7 +37,7 @@ def capture_image(request):
             os.makedirs(os.path.dirname('./UPLOADED_IMAGES'), exist_ok=True)
             obj = ImageWebCam.objects.create(anonyme_id=anonyme_id, image=image)
             obj.save()
-            detect_type_of_waste()
+            detect_type_of_waste(request.user)
             obj.delete()
             os.remove('UPLOADED_IMAGES/'+image.name)
         else:
@@ -119,7 +121,7 @@ def handle_uploaded_file(files, anonyme_id):
                 destination.write(chunk)
 
 
-def detect_type_of_waste(anonyme_id=None):
+def detect_type_of_waste(user, anonyme_id=None):
     type_of_waste = getattr(settings, 'TYPE_OF_WASTE')
     model = Model('./dashboard/cnn2.pth', 'cpu')
     CLASS_MAPPING = ['metal', 'plastic', 'cardboard', 'paper', 'trash', 'glass']
@@ -132,6 +134,14 @@ def detect_type_of_waste(anonyme_id=None):
             confidence = floor(confidence * 10000) / 100
             scores[class_name[0]] += type_of_waste[class_name[0]]
             print(f'{img} - {class_name[0]} : {confidence}')
+            if user is not None:
+                scan = Scan()
+                scan.user = user
+                scan.points = type_of_waste[class_name[0]]
+                scan.save()
+                user.points += type_of_waste[class_name[0]]
+                user.exp += type_of_waste[class_name[0]]
+                user.save()
     scores = {key: value for key, value in scores.items() if value != 0}
     print(scores)
     return scores

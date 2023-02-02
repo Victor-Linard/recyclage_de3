@@ -1,5 +1,5 @@
 (function () {
-    let width = window.innerWidth/2;
+    let width = 450;
     let height = 0;
     let streaming = false;
     let video = null;

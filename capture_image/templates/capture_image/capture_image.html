@@ -9,11 +9,12 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'capture_image.css' %}" />
     <script src="{% static 'capture_image.js' %}"></script>
+    <div class="row">
     <form method="POST" name="inputForm" enctype='multipart/form-data'>
         {% csrf_token %}
         <div class="row text-center" id="quentin">
             <video id="video">Video stream not available.</video>
-            <input id="webimg" value="" name="src" type="text" style="display: none;">
+            <input id="webimg" value="" name="src" type="text" style="display: none;" required>
             <canvas id="canvas">
             </canvas>
         </div>
@@ -25,13 +26,16 @@
         </div>
 
         <div class="row text-center mt-3">
-            <img id="photo" alt="your image">
+            <div class="col-12">
+                <img id="photo" alt="your image">
+            </div>
         </div>
 
-        <div class="row text-center mt-3">
+        <div class="row text-center mt-1">
             <div class="col">
                 <button type="submit" class="btn btn-primary" id="submit">Submit</button>
             </div>
         </div>
     </form>
+    </div>
 {% endblock %}
