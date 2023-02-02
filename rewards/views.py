@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from authenticate.models import User
 from rewards.models import Keys
-
+from capture_image.forms import UploadPictureToAnalyze
 
 # Create your views here.
 
@@ -11,14 +11,14 @@ from rewards.models import Keys
 def rewards(request):
     level_label = User.objects.select_related('level').get(pk=request.user.id)
     keys = Keys.objects.filter(user=request.user).select_related('reward')
-    return render(request, 'rewards.html', context={"level_label": level_label, "keys": keys})
+    return render(request, 'rewards.html', context={"level_label": level_label, "keys": keys, 'form': UploadPictureToAnalyze})
 
 
 @login_required(login_url='/signin/')
 def claimed(request):
     level_label = User.objects.select_related('level').get(pk=request.user.id)
     keys = Keys.objects.filter(user=request.user).select_related('reward')
-    return render(request, 'claimed.html', context={"level_label": level_label, "keys": keys})
+    return render(request, 'claimed.html', context={"level_label": level_label, "keys": keys, 'form': UploadPictureToAnalyze})
 
 
 @login_required(login_url='/signin/')
@@ -28,7 +28,7 @@ def change_reward_status(request, key):
     giga_key.save()
 
     if key is None:
-        return render(request, 'change_reward_status.html', context={'icon': "error", 'title': "Oops...", 'text': "Something went wrong!"})
+        return render(request, 'change_reward_status.html', context={'icon': "error", 'title': "Oops...", 'text': "Something went wrong!", 'form': UploadPictureToAnalyze})
     else:
-        return render(request, 'change_reward_status.html', context={'icon': "success", 'title': "Nice !", 'text': "Your Giga key : "+key})
+        return render(request, 'change_reward_status.html', context={'icon': "success", 'title': "Nice !", 'text': "Your Giga key : "+key, 'form': UploadPictureToAnalyze})
 
