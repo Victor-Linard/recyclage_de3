@@ -19,6 +19,8 @@ import authenticate.views
 import dashboard.views
 import rewards.views
 import user_profile.views
+import capture_image.views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,10 +28,9 @@ urlpatterns = [
     path('signup/', authenticate.views.signup_page, name="signup"),
     path('signout/', authenticate.views.signout_user, name="signout"),
     path('dashboard/', dashboard.views.dashboard, name="dashboard"),
-    path('', dashboard.views.dashboard, name="dashboard"),
     path('user_profile/', user_profile.views.general, name="general"),
-    path('user_profile/avatar/', user_profile.views.avatar, name="avatar"),
     path('user_profile/security/', user_profile.views.security, name="security"),
     path('rewards/', rewards.views.rewards, name="rewards"),
-    path('rewards/claimed', rewards.views.claimed, name="claimed")
+    path('rewards/claimed', rewards.views.claimed, name="claimed"),
+    path('capture_image/', capture_image.views.capture_image, name='capture_image')
 ]

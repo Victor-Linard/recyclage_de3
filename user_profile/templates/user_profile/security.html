@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block header_pretitle %}
+    overview
+{% endblock %}
+{% block header_title %}
+    Profile
+{% endblock %}
 {% block header_button %}
 {% endblock %}
 {% block content %}
@@ -18,11 +24,6 @@
                       <li class="nav-item">
                         <a href="{% url 'general' %}" class="nav-link">
                           General
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="{% url 'avatar' %}" class="nav-link">
-                          Choose an avatar
                         </a>
                       </li>
                       <li class="nav-item">
