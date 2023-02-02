@@ -6,6 +6,8 @@
 {% block header_title %}
     Profile
 {% endblock %}
+
+
 {% block header_button %}
     <p class="small text-muted mb-1">
         <time datetime="2018-06-21">{{ level_label.level.label }}</time>
@@ -30,6 +32,8 @@
 {% endblock %}
 {% block content %}
 
+
+
     <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8">
 
@@ -51,12 +55,21 @@
                                         Security
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'stats' %}" class="nav-link">
+                                        Stats
+                                    </a>
+                                </li>
                             </ul>
 
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
+
 
             <!-- Form -->
             <form>
