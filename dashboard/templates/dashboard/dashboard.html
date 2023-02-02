@@ -6,43 +6,12 @@
 {% block header_title %}
     Dashboard
 {% endblock %}
+{% block form_file %}
+    {{ form.file }}
+{% endblock %}
 {% block content %}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
-    <div class="modal" id="modalUploadPictureToAnalyze" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post"
-                      enctype="multipart/form-data">{% csrf_token %}
-                    <div class="modal-header">
-                        <h5 class="modal-title">Scan waste</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p class="text-muted text-center mb-2">
-                            Import files
-                        </p>
-
-                        {{ form.file }}
-
-                        <div class="text-center mt-4">
-                            <button type="submit" class="btn btn-primary"><span class="fe fe-upload-cloud"></span>
-                            </button>
-                        </div>
-
-                        <hr class="navbar-divider my-4">
-
-                        <p class="text-muted text-center mb-2">
-                            Use camera
-                        </p>
-                        <div class="text-center mt-2">
-                            <a class="btn btn-primary" href="{% url 'capture_image' %}"><span
-                                    class="fe fe-video"></span></a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-12 col-lg-6 col-xl">
 

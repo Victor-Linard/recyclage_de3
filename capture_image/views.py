@@ -1,5 +1,4 @@
 import os
-
 import requests
 from django.shortcuts import render
 from django.core.files import File
@@ -21,10 +20,15 @@ from skimage.metrics import structural_similarity as ssim
 import cv2
 import numpy as np
 from .models import Scan
+from authenticate.models import User, Level
 # Create your views here.
 
 
 def capture_image(request):
+    if request.user.is_authenticated:
+        level_label = User.objects.select_related('level').get(pk=request.user.id)
+    else:
+        level_label = None
     if request.method == 'POST':
         image_path = request.POST["src"]
         anonyme_id = (str(time()) + request.META.get('REMOTE_ADDR')).replace('.', '')
@@ -43,7 +47,7 @@ def capture_image(request):
         else:
             return redirect('/dashboard')
         return redirect('/dashboard')
-    return render(request, 'capture_image.html', context={})
+    return render(request, 'capture_image.html', context={'level_label': level_label})
 
 
 def mse(image_a, image_b):
@@ -138,13 +142,23 @@ def detect_type_of_waste(user, anonyme_id=None):
                 scan = Scan()
                 scan.user = user
                 scan.points = type_of_waste[class_name[0]]
+                scan.type_of_waste = class_name[0]
                 scan.save()
                 user.points += type_of_waste[class_name[0]]
                 user.exp += type_of_waste[class_name[0]]
                 user.save()
+                verify_level(user)
     scores = {key: value for key, value in scores.items() if value != 0}
     print(scores)
     return scores
+
+
+def verify_level(user):
+    levels = Level.objects.all()
+    for level in levels:
+        if user.exp >= level.exp_level_up:
+            user.level_id += 1
+            user.save()
 
 
 class Net(nn.Module):
