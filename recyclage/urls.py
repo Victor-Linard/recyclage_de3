@@ -36,5 +36,6 @@ urlpatterns = [
     path('rewards/', rewards.views.rewards, name="rewards"),
     path('rewards/claimed', rewards.views.claimed, name="claimed"),
     path('capture_image/', capture_image.views.capture_image, name='capture_image'),
-    path('change_reward_status/<str:key>', rewards.views.change_reward_status, name='change_reward_status')
+    path('change_reward_status/<str:key>/<int:cost>', rewards.views.change_reward_status, name='change_reward_status'),
+    path('pricing/', home.views.pricing, name='pricing')
 ]

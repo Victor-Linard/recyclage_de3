@@ -1,14 +1,16 @@
 from time import time
+import certifi
+import os
 from django.db.models import Sum
 from django.shortcuts import render
-
 from authenticate.models import User
 from capture_image import forms
 from django.views.decorators.http import require_GET, require_http_methods
 from .models import Dechet
 from capture_image.views import handle_uploaded_file, detect_type_of_waste, convert_heic, resize_picture, check_for_duplicate
 
-
+os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
+os.environ["SSL_CERT_FILE"] = certifi.where()
 # Create your views here.
 
 @require_http_methods(["GET", "POST"])

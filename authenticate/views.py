@@ -8,6 +8,9 @@ from . import forms
 import secrets
 import re
 
+from .models import User
+
+
 # Create your views here.
 
 

@@ -11,7 +11,6 @@ from django.db.models import Count
 
 
 @login_required(login_url='/signin/')
-
 def general(request):
     level_label = User.objects.select_related('level').get(pk=request.user.id)
     return render(request, 'general.html', context={"level_label": level_label})
