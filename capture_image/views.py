@@ -130,13 +130,14 @@ def detect_type_of_waste(user, anonyme_id=None):
     model = Model('./dashboard/cnn2.pth', 'cpu')
     CLASS_MAPPING = ['metal', 'plastic', 'cardboard', 'paper', 'trash', 'glass']
     COLORS = np.random.uniform(0, 255, size=(len(CLASS_MAPPING), 3))
-    scores = {'metal': 0, 'plastic': 0, 'cardboard': 0, 'paper': 0, 'trash': 0, 'glass': 0}
+    scores = {'score': 0, 'type_of_waste': ''}
     for img in os.listdir('UPLOADED_IMAGES/' + (anonyme_id + '/' if anonyme_id else '')):
         if anonyme_id is not None or img.endswith('.jpg'):
             inference, confidence = model.infer('UPLOADED_IMAGES/' + (anonyme_id + '/' if anonyme_id else '') + img)
             class_name = render_prediction(inference)
             confidence = floor(confidence * 10000) / 100
-            scores[class_name[0]] += type_of_waste[class_name[0]]
+            scores['score'] += type_of_waste[class_name[0]]
+            scores['type_of_waste'] += class_name[0].upper() + ' / '
             print(f'{img} - {class_name[0]} : {confidence}')
             if user is not None:
                 scan = Scan()
@@ -147,18 +148,18 @@ def detect_type_of_waste(user, anonyme_id=None):
                 user.points += type_of_waste[class_name[0]]
                 user.exp += type_of_waste[class_name[0]]
                 user.save()
-                verify_level(user)
-    scores = {key: value for key, value in scores.items() if value != 0}
+                scores['level_up'] = verify_level(user)
     print(scores)
     return scores
 
 
 def verify_level(user):
-    levels = Level.objects.all()
-    for level in levels:
-        if user.exp >= level.exp_level_up:
-            user.level_id += 1
-            user.save()
+    user_level = Level.objects.get(pk=user.level_id)
+    if user.exp > user_level.exp_level_up:
+        user.level_id = Level.objects.get(pk=user.level_id+1)
+        user.save()
+        return True
+    return False
 
 
 class Net(nn.Module):
