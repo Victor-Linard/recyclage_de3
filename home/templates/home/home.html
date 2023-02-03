@@ -1,281 +1,282 @@
 {% extends 'base_land.html' %}
 {% load static %}
 {% block content %}
-<body>
+    <!-- WELCOME -->
+    <section data-jarallax data-speed=".8"
+             class="pt-10 pt-md-14 pb-12 pb-md-15 overlay overlay-primary overlay-80 jarallax"
+             style="background-image: url({% static 'landkit/img/covers/trash_background.jpg' %});">
 
-<!-- WELCOME -->
-<section data-jarallax data-speed=".8" class="pt-10 pt-md-14 pb-12 pb-md-15 overlay overlay-primary overlay-80 jarallax"
-         style="background-image: url({% static 'landkit/img/covers/trash_background.jpg' %});">
+        <!-- Content -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 text-center">
 
-    <!-- Content -->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8 text-center">
+                    <!-- Heading -->
+                    <h1 class="display-1 fw-bold text-white mb-6 mt-n3">
+                        Sorting your waste pays off
+                    </h1>
 
-                <!-- Heading -->
-                <h1 class="display-1 fw-bold text-white mb-6 mt-n3">
-                    Sorting your waste pays off
-                </h1>
+                    <!-- Button -->
+                    <a class="btn btn-outline-success btn-rounded btn-white btn-sm text-success" href="#">
+                        <i class="fe fe-camera me-4"></i>
+                        Scan waste
+                    </a>
 
-                <!-- Button -->
-                <a class="btn btn-outline-success btn-rounded btn-white btn-sm text-success" href="#">
-                    <i class="fe fe-camera me-4"></i>
-                    Scan waste
-                </a>
-
-            </div>
-        </div> <!-- / .row -->
-    </div> <!-- / .container -->
-
-    <!-- Shape -->
-    <div class="position-absolute right-0 bottom-0 left-0">
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
 
         <!-- Shape -->
-        <div class="position-relative shape shape-bottom shape-fluid-x text-white">
-            <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M720 125L2160 0h720v250H0V125h720z" fill="currentColor"/>
-            </svg>
+        <div class="position-absolute right-0 bottom-0 left-0">
+
+            <!-- Shape -->
+            <div class="position-relative shape shape-bottom shape-fluid-x text-white">
+                <svg viewBox="0 0 2880 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M720 125L2160 0h720v250H0V125h720z" fill="currentColor"/>
+                </svg>
+            </div>
+
+            <!-- Button -->
+            <div class="position-absolute center">
+                <a class="btn btn-light btn-rounded-circle lift" data-scroll href="#payItDown">
+                    <i class="fe fe-arrow-down"></i>
+                </a>
+            </div>
+
         </div>
 
-        <!-- Button -->
-        <div class="position-absolute center">
-            <a class="btn btn-light btn-rounded-circle lift" data-scroll href="#payItDown">
-                <i class="fe fe-arrow-down"></i>
-            </a>
-        </div>
+    </section>
 
-    </div>
+    <!-- PAY IT DOWN -->
+    <section class="pt-8 pt-md-11" id="payItDown">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8 text-center">
 
-</section>
-
-<!-- PAY IT DOWN -->
-<section class="pt-8 pt-md-11" id="payItDown">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-8 text-center">
-
-                <!-- Badge -->
-                <span class="badge rounded-pill bg-primary-soft mb-3">
+                    <!-- Badge -->
+                    <span class="badge rounded-pill bg-primary-soft mb-3">
               <span class="h6 text-uppercase">Recycle</span>
             </span>
 
-                <!-- Heading -->
-                <h1>
-                    Scan, recycle, <span class="text-primary">win awards.</span>
-                </h1>
+                    <!-- Heading -->
+                    <h1>
+                        Scan, recycle, <span class="text-primary">win awards.</span>
+                    </h1>
 
-                <!-- Text -->
-                <p class="lead text-gray-700 mb-7 mb-md-9">
-                    Scanning items such as plastics, metal, paper, food, glass can earn you points, which you can use to purchase rewards. These rewards can be anything from eco-friendly products to unique experiences. The more you scan, the more points you earn, and the more opportunities you have to make a positive impact on the environment and receive great rewards in return. So start scanning today and turn your waste into rewards!
-                </p>
-
-            </div>
-        </div> <!-- / .row -->
-        <div class="row align-items-center">
-            <div class="col-12 col-md-6 col-lg-7">
-
-                <!-- Screenshot -->
-                <div class="mb-8 mb-md-0">
-
-                    <!-- Image -->
-                    <img src="{% static 'landkit/img/screenshots/desktop/dashboard.png' %}" alt="..."
-                         class="screenshot img-fluid mw-md-110 float-end me-md-6 mb-6 mb-md-0">
+                    <!-- Text -->
+                    <p class="lead text-gray-700 mb-7 mb-md-9">
+                        Scanning items such as plastics, metal, paper, food, glass can earn you points, which you can
+                        use to purchase rewards. These rewards can be anything from eco-friendly products to unique
+                        experiences. The more you scan, the more points you earn, and the more opportunities you have to
+                        make a positive impact on the environment and receive great rewards in return. So start scanning
+                        today and turn your waste into rewards!
+                    </p>
 
                 </div>
+            </div> <!-- / .row -->
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6 col-lg-7">
 
-            </div>
-            <div class="col-12 col-md-6 col-lg-5">
+                    <!-- Screenshot -->
+                    <div class="mb-8 mb-md-0">
 
-                <!-- List -->
-                <div class="d-flex">
-
-                    <!-- Badge -->
-                    <div class="badge badge-lg badge-rounded-circle bg-primary-soft mt-1">
-                        <span>1</span>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="ms-5">
-
-                        <!-- Heading -->
-                        <h3>
-                            Sign up
-                        </h3>
-
-                        <!-- Text -->
-                        <p class="text-gray-700 mb-6">
-                            It takes a few minutes to add your information and start to scan.
-                        </p>
+                        <!-- Image -->
+                        <img src="{% static 'landkit/img/screenshots/desktop/dashboard.png' %}" alt="..."
+                             class="screenshot img-fluid mw-md-110 float-end me-md-6 mb-6 mb-md-0">
 
                     </div>
 
                 </div>
-                <div class="d-flex">
+                <div class="col-12 col-md-6 col-lg-5">
 
-                    <!-- Badge -->
-                    <div class="badge badge-lg badge-rounded-circle bg-primary-soft mt-1">
-                        <span>2</span>
-                    </div>
+                    <!-- List -->
+                    <div class="d-flex">
 
-                    <!-- Body -->
-                    <div class="ms-5">
+                        <!-- Badge -->
+                        <div class="badge badge-lg badge-rounded-circle bg-primary-soft mt-1">
+                            <span>1</span>
+                        </div>
 
-                        <!-- Heading -->
-                        <h3>
-                            Scan
-                        </h3>
+                        <!-- Body -->
+                        <div class="ms-5">
 
-                        <!-- Text -->
-                        <p class="text-gray-700 mb-6">
-                            It takes less than 2 minutes to take a photo, upload an image, and find out if an object can be recycled or not.
-                        </p>
-
-                    </div>
-
-                </div>
-                <div class="d-flex">
-
-                    <!-- Badge -->
-                    <div class="badge badge-lg badge-rounded-circle bg-primary-soft mt-1">
-                        <span>3</span>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="ms-5">
-
-                        <!-- Heading -->
-                        <h3>
-                            Discover your awards
-                        </h3>
-
-                        <!-- Text -->
-                        <p class="text-gray-700 mb-0">
-                            Keep track of your waste scanning progress and see the rewards you can earn. Gain experience and level up by consulting your statistics.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div> <!-- / .row -->
-    </div> <!-- / .container -->
-</section>
-
-<!-- PRICING -->
-<section class="py-8 py-md-12">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-12 col-md-6">
-
-                <!-- Badge -->
-                <span class="badge rounded-pill bg-primary-soft mb-3">
-              <span class="h6 text-uppercase">Subscription</span>
-            </span>
-
-                <!-- Heading -->
-                <h2>
-                    Don't worry about pricing. <br>
-                    <span class="text-primary">We maximize your earnings</span>.
-                </h2>
-
-                <!-- Text -->
-                <p class="fs-lg text-gray-700 mb-6">
-                    Come and discover our subscription offers, to scan more, earn more and be more respectful of the environment while enjoying yourself!
-                </p>
-
-                <!-- List -->
-                <div class="row">
-                    <div class="col-12 col-lg-6">
-
-                        <!-- Item -->
-                        <div class="d-flex">
-
-                            <!-- Check -->
-                            <div class="badge badge-rounded-circle bg-primary-soft mt-1 me-4">
-                                <i class="fe fe-check"></i>
-                            </div>
+                            <!-- Heading -->
+                            <h3>
+                                Sign up
+                            </h3>
 
                             <!-- Text -->
-                            <p>
-                                Up to 50% more earned
-                            </p>
-
-                        </div>
-
-                        <!-- Item -->
-                        <div class="d-flex">
-
-                            <!-- Check -->
-                            <div class="badge badge-rounded-circle bg-primary-soft mt-1 me-4">
-                                <i class="fe fe-check"></i>
-                            </div>
-
-                            <p class="mb-lg-0">
-                                Up to 700 photos per month
+                            <p class="text-gray-700 mb-6">
+                                It takes a few minutes to add your information and start to scan.
                             </p>
 
                         </div>
 
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="d-flex">
 
-                        <!-- Item -->
-                        <div class="d-flex">
+                        <!-- Badge -->
+                        <div class="badge badge-lg badge-rounded-circle bg-primary-soft mt-1">
+                            <span>2</span>
+                        </div>
 
-                            <!-- Check -->
-                            <span class="badge badge-rounded-circle bg-primary-soft mt-1 me-4">
+                        <!-- Body -->
+                        <div class="ms-5">
+
+                            <!-- Heading -->
+                            <h3>
+                                Scan
+                            </h3>
+
+                            <!-- Text -->
+                            <p class="text-gray-700 mb-6">
+                                It takes less than 2 minutes to take a photo, upload an image, and find out if an object
+                                can be recycled or not.
+                            </p>
+
+                        </div>
+
+                    </div>
+                    <div class="d-flex">
+
+                        <!-- Badge -->
+                        <div class="badge badge-lg badge-rounded-circle bg-primary-soft mt-1">
+                            <span>3</span>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="ms-5">
+
+                            <!-- Heading -->
+                            <h3>
+                                Discover your awards
+                            </h3>
+
+                            <!-- Text -->
+                            <p class="text-gray-700 mb-0">
+                                Keep track of your waste scanning progress and see the rewards you can earn. Gain
+                                experience and level up by consulting your statistics.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+    <!-- PRICING -->
+    <section class="py-8 py-md-12">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6">
+
+                    <!-- Badge -->
+                    <span class="badge rounded-pill bg-primary-soft mb-3">
+                        <span class="h6 text-uppercase">Subscription</span>
+                    </span>
+
+                    <!-- Heading -->
+                    <h2>
+                        Don't worry about pricing. <br>
+                        <span class="text-primary">We maximize your earnings</span>.
+                    </h2>
+
+                    <!-- Text -->
+                    <p class="fs-lg text-gray-700 mb-6">
+                        Come and discover our subscription offers, to scan more, earn more and be more respectful of the
+                        environment while enjoying yourself!
+                    </p>
+
+                    <!-- List -->
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+
+                            <!-- Item -->
+                            <div class="d-flex">
+
+                                <!-- Check -->
+                                <div class="badge badge-rounded-circle bg-primary-soft mt-1 me-4">
+                                    <i class="fe fe-check"></i>
+                                </div>
+
+                                <!-- Text -->
+                                <p>
+                                    Up to 50% more earned
+                                </p>
+
+                            </div>
+
+                            <!-- Item -->
+                            <div class="d-flex">
+
+                                <!-- Check -->
+                                <div class="badge badge-rounded-circle bg-primary-soft mt-1 me-4">
+                                    <i class="fe fe-check"></i>
+                                </div>
+
+                                <p class="mb-lg-0">
+                                    Up to 700 photos per month
+                                </p>
+
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-lg-6">
+
+                            <!-- Item -->
+                            <div class="d-flex">
+
+                                <!-- Check -->
+                                <span class="badge badge-rounded-circle bg-primary-soft mt-1 me-4">
                     <i class="fe fe-check"></i>
                   </span>
 
-                            <!-- Text -->
-                            <p>
-                                Up to no level limit
-                            </p>
+                                <!-- Text -->
+                                <p>
+                                    Up to no level limit
+                                </p>
 
-                        </div>
-
-                        <!-- Item -->
-                        <div class="d-flex">
-
-                            <!-- Check -->
-                            <div class="badge badge-rounded-circle bg-primary-soft me-1 me-4">
-                                <i class="fe fe-check"></i>
                             </div>
 
-                            <!-- Text -->
-                            <p class="mb-0">
-                                Access to a personalized dashboard
-                            </p>
+                            <!-- Item -->
+                            <div class="d-flex">
+
+                                <!-- Check -->
+                                <div class="badge badge-rounded-circle bg-primary-soft me-1 me-4">
+                                    <i class="fe fe-check"></i>
+                                </div>
+
+                                <!-- Text -->
+                                <p class="mb-0">
+                                    Access to a personalized dashboard
+                                </p>
+
+                            </div>
 
                         </div>
+                    </div> <!-- / .row -->
 
-                    </div>
-                </div> <!-- / .row -->
+                </div>
+                <div class="col-12 col-md-6">
 
-            </div>
-            <div class="col-12 col-md-6">
+                    <!-- Image -->
+                    <img src="{% static 'landkit/img/illustrations/illustration-3.png' %}" alt="..."
+                         class="img-fluid mw-md-130">
 
-                <!-- Image -->
-                <img src="{% static 'landkit/img/illustrations/illustration-3.png' %}" alt="..." class="img-fluid mw-md-130">
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
 
-            </div>
-        </div> <!-- / .row -->
-    </div> <!-- / .container -->
-</section>
-
-<!-- SHAPE -->
-<div class="position-relative">
-    <div class="shape shape-bottom shape-fluid-x text-light">
-        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"/>
-        </svg>
+    <!-- SHAPE -->
+    <div class="position-relative">
+        <div class="shape shape-bottom shape-fluid-x text-light">
+            <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"/>
+            </svg>
+        </div>
     </div>
-</div>
-
-<script src="{% static 'landkit/js/theme.bundle.js' %}"></script>
-<script src="{% static 'landkit/js/vendor.bundle.js' %}"></script>
-</body>
-</html>
-
 {% endblock %}
