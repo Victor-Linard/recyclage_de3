@@ -41,12 +41,12 @@ def capture_image(request):
             os.makedirs(os.path.dirname('./UPLOADED_IMAGES'), exist_ok=True)
             obj = ImageWebCam.objects.create(anonyme_id=anonyme_id, image=image)
             obj.save()
-            detect_type_of_waste(request.user)
+            scores = detect_type_of_waste(request.user)
             obj.delete()
             os.remove('UPLOADED_IMAGES/'+image.name)
         else:
             return redirect('/dashboard')
-        return redirect('/dashboard')
+        return render(request, 'display_results.html', context={'scores': scores, 'level_label': level_label})
     return render(request, 'capture_image.html', context={'level_label': level_label})
 
 
@@ -149,6 +149,7 @@ def detect_type_of_waste(user, anonyme_id=None):
                 user.exp += type_of_waste[class_name[0]]
                 user.save()
                 scores['level_up'] = verify_level(user)
+    scores['type_of_waste'] = scores['type_of_waste'][:-2]
     print(scores)
     return scores
 

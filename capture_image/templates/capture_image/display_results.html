@@ -1,0 +1,23 @@
+{% load static %}
+<html>
+<head>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{% static 'theme/css/libs.bundle.css' %}"/>
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'theme/css/theme.bundle.css' %}"/>
+</head>
+<body>
+    {% if scores %}
+        <script>
+            Swal.fire({
+                icon: "success",
+                title: "+ {{ scores.score }}",
+                text: "{{ scores.type_of_waste }}"
+            }).then((result) => {
+                window.location.href = "/dashboard"
+            })
+        </script>
+    {% endif %}
+</body>
+</html>
