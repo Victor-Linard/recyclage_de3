@@ -187,8 +187,8 @@
                         </h1>
 
                     </div>
-                    <div class="col-auto">
-                        {% if user.is_authenticated %}
+                    <div class="col-auto col-auto d-none d-md-block">
+                        {% if user.is_authenticated and 'signin' not in request.path and 'signup' not in request.path %}
                             <div class="d-flex align-items-center">
                                 <div class="avatar mr-3">
                                     <img class="avatar-img rounded-circle"
