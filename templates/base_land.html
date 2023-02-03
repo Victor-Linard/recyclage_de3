@@ -28,30 +28,51 @@
             <img src="{% static 'pictures/logo.png' %}" class="navbar-brand-img" alt="...">
         </a>
 
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="navbarCollapse">
 
+          <!-- Toggler -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fe fe-x"></i>
+          </button>
+
             <!-- Navigation -->
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="{% url 'home' %}">
-                        Home
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{% url 'pricing' %}">
-                        Pricing
-                    </a>
-                </li>
-            </ul>
+            <li class="nav-item">
+              <a class="nav-link" id="navbarLandings" href="{% url 'home' %}" >
+                Landings
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link " id="navbarPages"  href="{% url 'pricing' %}">
+                Pages
+              </a>
+            </li>
+          </ul>
+
 
             <!-- Button -->
-            <a class="navbar-btn btn btn-sm btn-primary lift ms-auto" href="{% url 'signin' %}" target="_blank">
-                Sign In
+            <a class="navbar-btn btn btn-sm btn-primary lift ms-auto" href="{% url 'signin' %}">
+              Sign In
             </a>
         </div>
     </div>
 </nav>
+
+ <!-- JAVASCRIPT -->
+    <!-- Map JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+
+    <!-- Vendor JS -->
+    <script src="../static/landkit/js/vendor.bundle.js"></script>
+
+    <!-- Theme JS -->
+    <script src="../static/landkit/js/theme.bundle.js"></script>
 
 {% block content %}{% endblock %}
 
